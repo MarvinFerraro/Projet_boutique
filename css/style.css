@@ -1,0 +1,76 @@
+body{
+    margin: 0 0;
+}
+.hero{
+    background-image: url("../img/thaillande_hero.jpeg");
+    background-position: bottom;
+    padding:150px 0 ;
+    margin-bottom: 10em;
+}
+h1{
+    text-align: center;
+    font-size: 5em;
+    color: white;
+}
+
+.cadre.article{
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+.Cadre img {
+    max-width:100%;
+    height:auto;
+}
+.cadre.catalogue{
+
+}
+.nom{
+    font-size: 3em;
+}
+.price{
+    font-size: 2em;
+}
+.price_text{
+    display: block;
+    font-size: 0.7em;
+
+}
+
+
+footer{
+    padding: 70px 0;
+    background-color: #2068bb;
+}
+footer ul{
+    text-align: center;
+    list-style: none;
+}
+footer ul li{
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 0;
+}
+
+/*
+                       Formulaire
+*/
+form{
+    text-align: center;
+    margin-bottom: 10em;
+}
+form .boiteForm{
+    margin-bottom: 2em;
+}
+
+ form .locationFrom,.pictForm,.priceFrom{
+     display: block;
+ }
+ form label{
+     margin-bottom: 1em;
+     font-size: 2em;
+ }
+ form input{
+     padding: 10px 10px;
+ }
+
