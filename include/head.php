@@ -10,4 +10,12 @@
 <body>
 <header class="hero">
     <h1>Les plus beaux paysages</h1>
+    <nav class="nav">
+        <ul>
+            <li><a href="index.php">Accueil</a></li>
+            <li><a href="catalogueV3.php">Catalogue</a></li>
+        <li><a href="addArticle.php" >Ajout destination</a></li>
+        </ul>
+    </nav>
+
 </header>

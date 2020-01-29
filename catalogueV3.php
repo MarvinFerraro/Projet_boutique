@@ -1,7 +1,7 @@
 <?php
 // Init array multy
 include("include/functions.php");
- include("head.php") ?>
+ include("include/head.php") ?>
 
 <?php
 afficheArticle($cats); ?>

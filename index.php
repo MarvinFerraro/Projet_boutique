@@ -1,6 +1,6 @@
-// Init variables
+<!--Init variables-->
 <?php
-$name= "Chiang-Mai";
+$name= "Chiang Mai";
 $price = 1500;
 $image = "img/chiang_mai.jpg"
 
