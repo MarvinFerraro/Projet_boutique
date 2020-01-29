@@ -1,22 +1,10 @@
-<?php
-if (isset($_FILES['yourPict']) AND $_FILES['yourPict']['error']==0){
-    if ($_FILES['yourPict']['size'] <= 1000000){
 
-        $infosfichier = pathinfo($_FILES['yourPict']['name']);
-        $extension_upload = $infosfichier['extension'];
-        $extensions_autorisees = array('jpg', 'jpeg', 'png');
-        if (in_array($extension_upload, $extensions_autorisees))
-        {
-            move_uploaded_file($_FILES['yourPict']['tmp_name'], 'img/imgtmp/' . basename($_FILES['yourPict']['name']));
-            echo "L'envoi a bien été effectué !";
-        }
-    }
-}
-$photoEnvoyer = $_FILES['yourPict']['name'];
-?>
+<?php include("include/head.php") ?>
+<!-- on remplace le nom, la source de l'image et le prix par les variables php. -->
+<div class="cadre article">
+    <h2 class="nom"> Adresse <?= $_POST['yourLocation'] ?></h2>
+    <img src="img/imgtmp/<?= basename($_FILES['yourPict']['name']) ?>" alt="Photo de <?=  $_POST['yourLocation']?>">
+    <p class="price"> Pour seulement : <?=  $_POST['yourPrice']?> € <span class="price_text">(Transport compris)</span> </p>
+</div>
+<?php include("include/footer.php") ?>
 
-<p> Ta destination <?= $_POST['yourLocation'] ?></p>
-
-
-<div> <img src="<?= 'img/imgtmp/'. $photoEnvoyer ?>"></div>
-<p>Ton prix : <?= $_POST['yourPrice']?> </p>
