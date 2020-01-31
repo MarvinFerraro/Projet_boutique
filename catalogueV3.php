@@ -3,8 +3,10 @@
 include("include/functions.php");
  include("include/head.php") ?>
 
-<?php
-afficheArticle($cats); ?>
-
-
+<form action="panier.php" method="post">
+    <?php
+    afficheArticle($cats);
+    ?>
+    <input type="submit" value="envoersqdsq">
+</form>
 <?php include("include/footer.php") ?>
