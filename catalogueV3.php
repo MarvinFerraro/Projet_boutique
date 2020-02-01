@@ -12,7 +12,6 @@ require 'include/functions.php';
 <?php
     $cats = listCats();
     $i=0;
-
     ?>
 
     <form action="panier.php" method="post">
