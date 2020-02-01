@@ -6,7 +6,7 @@ include("include/functions.php");
 <form action="panier.php" method="post">
     <?php
     afficheArticle($cats);
-
+e
     ?>
     <input type="submit" value="envoersqdsq">
 </form>
