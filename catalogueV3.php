@@ -7,6 +7,6 @@ include("include/functions.php");
     <?php
     afficheArticle($cats);
     ?>
-    <input type="submit" value="envoersqdsq">
+    <input type="submit" value="Envoyer">
 </form>
 <?php include("include/footer.php") ?>
