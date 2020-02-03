@@ -1,103 +1,127 @@
-body{
+body {
     margin: 0 0;
 }
-.nav{
+
+.nav {
     text-align: center;
 }
-.nav ul{
+
+.nav ul {
     margin: 0 auto;
 }
-.nav ul li{
+
+.nav ul li {
     display: inline-block;
     padding: 0 20px;
 }
 
-.nav ul li a{
+.nav ul li a {
     text-decoration: none;
     color: white;
     text-align: center;
     font-size: 1.8em;
-    transition: 0.5s opacity ease;
 }
 
-.hero{
+.hero {
     background-image: url("../img/thaillande_hero.jpeg");
     background-position: bottom;
-    padding:150px 0 ;
+    padding: 150px 0;
     margin-bottom: 10em;
 }
-h1{
+
+h1 {
     text-align: center;
     font-size: 5em;
     color: white;
 }
 
-.cadre.article{
+.cadre.article {
     text-align: center;
     display: block;
     margin: 0 auto;
 }
+
 .cadre img {
     max-height: 200px;
     max-width: 300px;
 }
-.cadre.catalogue{
 
-}
-.nom{
+.nom {
     font-size: 3em;
 }
-.price{
+
+.price {
     font-size: 2em;
+    text-align: center;
 }
-.price_text{
+
+.price_text {
     display: block;
     font-size: 0.7em;
+}
+
+.priceSomme {
+    text-align: center;
+    font-size: 2em;
 
 }
 
-
-footer{
+footer {
     padding: 70px 0;
     background-color: #2068bb;
 }
-footer ul{
+
+footer ul {                                                    
+    text-align: center;                                        
+    list-style: none;                                          
+}                                                              
+                                                               
+footer ul li {                                                 
+    color: white;                                              
+    font-size: 1.2em;                                          
+    padding: 10px 0;                                           
+}                                                              
+                                                               
+/*                                                             
+                       Formulaire                              
+*/                                                             
+                                                               
+.emptyPanier .returnCat{                                       
+    text-decoration: none;                                     
+    font-size: 3em;                                            
+    display: inline-block;                                     
+    margin: 0 auto;                                            
+}                                                              
+                                                               
+.boiteForm .errorForm {                                        
+    color: red;                                                
+    font-size: 1.4em;                                          
+    font-weight: bold;                                         
+}                                                              
+                                                               
+
+form {
     text-align: center;
-    list-style: none;
-}
-footer ul li{
-    color: white;
-    font-size: 1.2em;
-    padding: 10px 0;
+    margin-bottom: 3em;
 }
 
-/*
-                       Formulaire
-*/
-
-form .boiteForm .errorForm{
-    color: red;
-    font-size: 1.4em;
-    font-weight: bold;
-}
-
-
-form{
-    text-align: center;
-    margin-bottom: 10em;
-}
-form .boiteForm{
+form .boiteForm {
     margin-bottom: 2em;
 }
 
- form .locationFrom,.pictForm,.priceFrom{
-     display: block;
- }
- form label{
-     margin-bottom: 1em;
-     font-size: 2em;
- }
- form input{
-     padding: 10px 10px;
- }
+form .locationFrom, .pictForm, .priceFrom {
+    display: block;
+}
+
+form label {
+    margin-bottom: 1em;
+    font-size: 2em;
+}
+
+form .checkBox {
+}
+
+form input {
+    padding: 10px 10px;
+}
 

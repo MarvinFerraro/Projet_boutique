@@ -35,3 +35,16 @@ function listCats()
     return $cats;
 }
 
+function afficheArticle($name, $img, $price, $value){
+    ?>
+    <div class="cadre article">
+        <h2 class="nom">Adresse <?= $name ?></h2>
+        <img src='<?= $img ?>' alt="Photo de '<?= $name ?> ">
+        <p class="price">Pour seulement : <?= $price ?> € <span class="price_text">(Transport compris)</span>
+        </p>
+        <input class="checkBox" type="checkbox" name="removeArticle[]" value="<?= $value ?>" id="">
+    </div>
+<?php
+}
+
+
