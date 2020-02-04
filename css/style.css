@@ -49,6 +49,9 @@ h1 {
 .nom {
     font-size: 3em;
 }
+.info {
+    font-size: 1.3em;
+}
 
 .price {
     font-size: 2em;
