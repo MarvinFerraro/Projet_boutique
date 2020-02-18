@@ -1,6 +1,6 @@
 <?php
 require 'include/functionQuantite.php';
-include ('include/head.php');
+include('include/head.php');
 session_start();
 $cats = listCats();
 
@@ -77,11 +77,11 @@ if (!empty($_SESSION['panier']) AND empty($_POST['removeArticle'])) {
 if(empty($_SESSION['panier']) AND isset($_POST['removeArticle'])){
     ?>
     <div class="emptyPanier">
-        <p><a class="returnCat" href="catalogueV3.php">Catalogue</a></p>
+        <p><a class="returnCat" href="archive/catalogueV3.php">Catalogue</a></p>
         <p class="price">Remplis moi ce panier</p>
     </div>
     <?php
 }
 ?>
 <?php
-include ('include/footer.php');
+include('include/footer.php');

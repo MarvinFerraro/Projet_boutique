@@ -22,7 +22,6 @@ function select_articles($bdd)
 }
 
 
-
 // -----------------------------------Function afficher le total de tout les articles en stock--------------------------
 function select_price_all_order($bdd)
 {

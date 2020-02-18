@@ -13,7 +13,7 @@
     <nav class="nav">
         <ul>
             <li><a href="index.php">Accueil</a></li>
-            <li><a href="catalogueV3.php">Catalogue</a></li>
+            <li><a href="catalogueSQL.php">Catalogue</a></li>
         <li><a href="addArticle.php" >Ajout destination</a></li>
         </ul>
     </nav>

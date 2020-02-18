@@ -7,7 +7,7 @@ include("include/head.php") ?>
     $cats = listCats();
     
     ?>
-    <form action="panierQuantite.php" method="post">
+    <form action="../panierQuantite.php" method="post">
         <?php
         catArticle($cats);
         ?>

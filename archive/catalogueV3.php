@@ -1,13 +1,13 @@
 <?php
 // Init array multy
 require 'include/functions.php';
- include("include/head.php") ?>
+include("include/head.php") ?>
 
 <?php
     $cats = listCats();
     $i=0;
     ?>
-    <form action="panier.php" method="post">
+    <form action="../panier.php" method="post">
         <?php
 
         foreach ($cats as $cat => $value) { ?>

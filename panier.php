@@ -59,7 +59,7 @@ if (empty($_SESSION['panier'])) {
 
         ?>
         <div class="emptyPanier">
-            <p><a class="returnCat" href="catalogueV3.php">Catalogue</a></p>
+            <p><a class="returnCat" href="archive/catalogueV3.php">Catalogue</a></p>
             <p class="price">Remplis moi ce panier</p>
         </div>
         <?php
