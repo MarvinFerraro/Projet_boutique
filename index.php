@@ -1,11 +1,13 @@
 <!--Init variables-->
 <?php
+require 'include/functionsSQL.php';
 $name= "Chiang Mai";
 $price = 1500;
 $image = "img/chiang_mai.jpg"
 
 
 ?>
+
 <?php include("include/head.php") ?>
 <!-- on remplace le nom, la source de l'image et le prix par les variables php. -->
     <div class="cadre article">

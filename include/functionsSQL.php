@@ -5,7 +5,7 @@ try {
     die('Erreur ; ' . $e->getMessage());
 }
 
-// Function afficher tout users de la table users
+// --------------------------------- Function afficher tout users de la table users ------------------------------------
 
 function select_user($bdd)
 {
@@ -14,7 +14,7 @@ function select_user($bdd)
 }
 
 
-// Function afficher tout les articles de la tables articles
+// ----------------------------------Function afficher tout les articles de la tables articles--------------------------
 function select_articles($bdd)
 {
     $articles = $bdd->query('SELECT * FROM articles');
@@ -23,7 +23,7 @@ function select_articles($bdd)
 
 
 
-// Function afficher le total de tout les articles en stock
+// -----------------------------------Function afficher le total de tout les articles en stock--------------------------
 function select_price_all_order($bdd)
 {
     $price_all_order = $bdd->query('
@@ -35,20 +35,39 @@ function select_price_all_order($bdd)
 }
 
 
-// Function afficher toute les commandes d'un users
-function list_of_orders_user($bdd, $users)
+//  -----------------------------------Function afficher toute les commandes d'un users- -------------------------------
+function list_of_orders_user($bdd, $user)
 {
-    $list_orders_users = $bdd->prepare(" 
+    $list_orders_users = $bdd->query("
     SELECT * FROM orders INNER JOIN users on orders.Users_id = Users.id
-    WHERE users.name LIKE '$users'% "
-);
+    WHERE users.name LIKE '$user%'
+    ");
     return $list_orders_users;
 }
 
 
+//  -----------------------------------Function ajouter un nouveau produit ---------------------------------------------
+function add_article($bdd,$article)
+{
+    $req = $bdd->prepare('INSERT INTO articles(name, description, price, weight, image, stock, for_sale,Categories_id)
+    VALUES(:name,:description,:price,:weight,:image,:stock,:for_sale,:Categories_id)');
 
-$list=list_of_orders_user($bdd, 'Charlize');
-
-while($donnesUsers = $list->fetch()){
-    echo $donnesUsers;
+    $req->execute(array(
+        ':name' => $article[0],
+        ':description' => $article[1],
+        ':price' => $article[2],
+        ':weight' => $article[3],
+        ':image' => $article[4],
+        ':stock' => $article[5],
+        ':for_sale'=> $article[6],
+        ':Categories_id' => $article[7]
+        ));
 }
+
+
+//  -----------------------------------Function supprimer un nouveau produit -------------------------------------------
+function delete_article($bdd, $id_article)
+{
+    $req = $bdd->query("DELETE FROM articles WHERE id = '$id_article'");
+}
+
