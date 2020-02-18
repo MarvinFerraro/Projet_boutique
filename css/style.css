@@ -60,7 +60,7 @@ h1 {
 
 .price_text {
     display: block;
-    font-size: 0.7em;
+    font-size: 1em;
 }
 
 .priceSomme {
@@ -74,34 +74,36 @@ footer {
     background-color: #2068bb;
 }
 
-footer ul {                                                    
-    text-align: center;                                        
-    list-style: none;                                          
-}                                                              
-                                                               
-footer ul li {                                                 
-    color: white;                                              
-    font-size: 1.2em;                                          
-    padding: 10px 0;                                           
-}                                                              
-                                                               
+footer ul {
+    text-align: center;
+    list-style: none;
+}
+footer ul li {
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 0;
+}
+
 /*                                                             
                        Formulaire                              
 */                                                             
-                                                               
-.emptyPanier .returnCat{                                       
-    text-decoration: none;                                     
-    font-size: 3em;                                            
-    display: inline-block;                                     
-    margin: 0 auto;                                            
-}                                                              
-                                                               
-.boiteForm .errorForm {                                        
-    color: red;                                                
-    font-size: 1.4em;                                          
-    font-weight: bold;                                         
-}                                                              
-                                                               
+.input_float{
+    position: fixed;
+    left: 700px;
+    top: 500px;
+}
+
+.emptyPanier .returnCat{
+    text-decoration: none;
+    font-size: 3em;
+    display: inline-block;
+    margin: 0 auto;
+}
+.boiteForm .errorForm {
+    color: red;
+    font-size: 1.4em;
+    font-weight: bold;
+}
 
 form {
     text-align: center;

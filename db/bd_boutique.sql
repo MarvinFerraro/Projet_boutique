@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 17 fév. 2020 à 15:45
+-- Généré le :  mar. 18 fév. 2020 à 13:26
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -41,26 +41,26 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `Categories_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_Articles_Categories1_idx` (`Categories_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles`
 --
 
 INSERT INTO `articles` (`id`, `name`, `description`, `price`, `weight`, `image`, `stock`, `for_sale`, `Categories_id`) VALUES
-(1, 'CCI Grenoble', 'Voyage à la CCI Grenoble.', 100, 1, 'img/cci_grenoble.jgp', 10, 1, 1),
-(2, 'Machu Picchu', 'Voyage au Machu Picchu.', 100, 1, 'img/machupicchu.jpg', 10, 1, 1),
+(1, 'CCI Grenoble', 'Voyage à la CCI Grenoble.', 100, 1, 'img/cci_grenoble.jpg', 10, 1, 1),
+(2, 'Machu Picchu', 'Voyage au Machu Picchu.', 100, 1, 'img/machu_picchu.jpg', 10, 1, 1),
 (3, 'Grande muraille de chine', 'Voyage à la grande muraille de chine.', 10, 0.5, 'img/muraille_de_chine.jpg', 1, 0, 1),
 (4, 'Petra', 'Voyage à Petra.', 10, 0.5, 'img/petra.jpg', 1, 1, 1),
 (5, 'Pyramides d\'Egypte', 'Voyage en Egypte.', 10, 0.5, 'img/pyramide.jpg', 1, 1, 1),
 (6, 'Taj Mahal', 'Voyage au Taj Mahal.', 10, 0.5, 'img/taj_mahal.jpg', 1, 1, 1),
-(7, 'Bangkok', 'Voyage à Bangkok.', 13, 0.5, 'img.bangkok.jpg', 0, 1, 2),
+(7, 'Bangkok', 'Voyage à Bangkok.', 13, 0.5, 'img/bangkok.jpg', 0, 1, 2),
 (8, 'Chaing Mai', 'Voyage à Chiang Mai.', 13, 0.5, 'img/chiang_mai.jpg', 0, 1, 2),
 (9, 'Lampang', 'Voyage à Lampang.', 50, 1.2, 'img/lampang.jpg', 2, 1, 2),
 (10, 'Pattaya', 'Voyage à Pattaya.', 50, 1.2, 'img/pattaya.jpg', 2, 1, 2),
 (11, 'Levi', 'Voyage à Levi.', 525, 1.2, 'img/levi.jpg', 5, 0, 3),
 (12, 'Luosto', 'Voyage à Luosto.', 525, 1.2, 'img/luosto.jpg', 5, 0, 3),
-(13, 'Rovaniemi', 'Voyage à Rovaniemi.', 525, 1.2, 'img/rovaniemi.jpg', 5, 0, 3);
+(13, 'Rovaniemi', 'Voyage à Rovaniemi.', 525, 1.2, 'img/tour_rovaniemi.jpg', 5, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -143,12 +143,12 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`id`, `numero`, `date`, `price`, `total_weight`, `Users_id`) VALUES
-(1, '15ML', '2020-01-13', 120, 2, 1),
-(2, '16ML', '2020-02-10', 600, 3.6, 1),
-(3, '17ML', '2019-12-08', 150, 2.2, 2),
-(4, '18ML', '2020-02-07', 520, 2.2, 2),
-(5, '19ML', '2020-02-13', 600, 2.2, 2),
-(6, '20ML', '2020-02-14', 210, 2.5, 2);
+(1, '15CO', '2020-01-13', 120, 2, 1),
+(2, '16CO', '2020-02-10', 600, 3.6, 1),
+(3, '17CO', '2019-12-08', 150, 2.2, 2),
+(4, '18CO', '2020-02-07', 520, 2.2, 2),
+(5, '19CO', '2020-02-13', 600, 2.2, 2),
+(6, '20CO', '2020-02-14', 210, 2.5, 2);
 
 -- --------------------------------------------------------
 

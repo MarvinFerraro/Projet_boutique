@@ -1,31 +1,27 @@
 <?php
-// Init array multy
 require 'include/functions.php';
- include("include/head.php") ?>
+require 'include/functionsSQL.php';
+include("include/head.php");
 
-<?php
-
-
-
-
-
-    $cats = listCats();
-    $i=0;
-    ?>
-    <form action="panier.php" method="post">
+$articles = list_articles($bdd);
+?>
+    <form action="panierSQL.php" method="post">
         <?php
-
-        foreach ($cats as $cat => $value) { ?>
+        while ($d_article = $articles->fetch()) {
+            ?>
             <div class="cadre article">
-                <h2 class="nom">Adresse <?= $value[0]?></h2>
-                <img src='<?=$value[1]?>' alt="Photo de '<?=$value[0]?>'' ">
-                <p class="price">Pour seulement : <?=$value[2]?> € <span class="price_text">(Transport compris)</span></p>
-                <input type="checkbox" name="article[]" value ="<?=$i?>" id="">
+                <h2 class="nom">Direction : <?= $d_article['name'] ?></h2>
+                <img src="<?= $d_article['image'] ?>" alt="<?= $d_article['name'] ?>">
+                <p class="price">Pour seulement : <?= $d_article['price'] ?>
+                    <span class="price_text">(Transport compris)</span></p>
+                <p class="price">Il reste encore : <?= $d_article['stock'] ?> place(s)</p>
+                <p class="description"><?= $d_article['description'] ?></p>
+                <p class="price_text">Poids du bagage strictement inférieur à <?= $d_article['weight'] ?></p>
+                <input type="checkbox" name="article[]" value="<?=$d_article['id'] ?>">
             </div>
             <?php
-            $i++;
-        }
-        ?>
-        <input type="submit" value="Envoyer">
+        }?>
+    <input class="input_float" type="submit" value="Envoyer">
     </form>
+
 <?php include("include/footer.php") ?>

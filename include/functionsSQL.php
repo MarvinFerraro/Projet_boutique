@@ -15,10 +15,16 @@ function select_user($bdd)
 
 
 // ----------------------------------Function afficher tout les articles de la tables articles--------------------------
-function select_articles($bdd)
+function list_articles($bdd)
 {
     $articles = $bdd->query('SELECT * FROM articles');
     return $articles;
+}
+// ----------------------------------Function afficher l'articles selectionné de la tables articles--------------------------
+function select_article($bdd,$id)
+{
+    $select_art = $bdd->query("SELECT * FROM `articles` WHERE articles.id ='$id' ");
+    return $select_art;
 }
 
 
@@ -43,6 +49,13 @@ function list_of_orders_user($bdd, $user)
     ");
     return $list_orders_users;
 }
+
+
+
+
+
+
+
 
 
 //  -----------------------------------Function ajouter un nouveau produit ---------------------------------------------

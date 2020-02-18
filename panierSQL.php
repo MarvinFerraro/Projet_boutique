@@ -1,8 +1,7 @@
 <?php
-require 'include/functions.php';
+require 'include/functionsSQL.php';
 include('include/head.php');
 session_start();
-$cats = listCats();
 //Si le post n'est pas vide.
 if (!empty($_POST['article'])) {
 //    il stock les valeurs d'article dans la session Panier
@@ -14,12 +13,27 @@ if (!empty($_POST['article'])) {
 if (!empty($_SESSION['panier']) AND empty($_POST['removeArticle'])) {
     $somme = 0;
     ?>
-    <form action="panier.php" method="post">
+    <form action="panierSQL.php" method="post">
         <?php
-        foreach ($_SESSION['panier'] as $article) {
-            afficheArticlePanier($cats[$article][0], $cats[$article][1], $cats[$article][2], $article);
+        foreach ($_SESSION['panier'] as $id_chose) {
+            $select_article= select_article($bdd, $id_chose);
 
-            $somme = totalPanier($cats[$article][2], $somme);
+            while($d_article_chose = $select_article->fetch())
+            {
+                ?>
+                <div class="cadre article">
+                    <h2 class="nom">Direction : <?= $d_article_chose['name'] ?></h2>
+                    <img src="<?= $d_article_chose['image'] ?>" alt="<?= $d_article_chose['name'] ?>">
+                    <p class="price">Pour seulement : <?= $d_article_chose['price'] ?>
+                        <span class="price_text">(Transport compris)</span></p>
+                    <p class="price">Il reste encore : <?= $d_article_chose['stock'] ?> place(s)</p>
+                    <p class="description"><?= $d_article_chose['description'] ?></p>
+                    <p class="price_text">Poids du bagage strictement inférieur à <?= $d_article_chose['weight'] ?></p>
+                    <input type="checkbox" name="article[]" value="<?= $d_article_chose['id'] ?>">
+                </div>
+                <?php
+                $somme = $d_article_chose['price'] + $somme;
+            }
         }
         ?>
         <input type="submit" value="Modifier panier">
@@ -35,7 +49,7 @@ if (!empty($_SESSION['panier']) AND empty($_POST['removeArticle'])) {
     $somme = 0;
     if (count($_SESSION['panier']) > 1) {
         ?>
-        <form action="panier.php" method="post">
+        <form action="panierSQL.php" method="post">
             <?php
             foreach ($_SESSION['panier'] as $cat => $value) {
                 if (!in_array($value, $removeCats)) {
