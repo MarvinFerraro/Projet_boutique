@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mar. 18 fév. 2020 à 13:26
+-- Généré le :  mer. 19 fév. 2020 à 15:05
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -60,7 +60,7 @@ INSERT INTO `articles` (`id`, `name`, `description`, `price`, `weight`, `image`,
 (10, 'Pattaya', 'Voyage à Pattaya.', 50, 1.2, 'img/pattaya.jpg', 2, 1, 2),
 (11, 'Levi', 'Voyage à Levi.', 525, 1.2, 'img/levi.jpg', 5, 0, 3),
 (12, 'Luosto', 'Voyage à Luosto.', 525, 1.2, 'img/luosto.jpg', 5, 0, 3),
-(13, 'Rovaniemi', 'Voyage à Rovaniemi.', 525, 1.2, 'img/tour_rovaniemi.jpg', 5, 0, 3);
+(13, 'Rovaniemi', 'Voyage à Rovaniemi.', 1000, 1.2, 'img/tour_rovaniemi.jpg', 5, 0, 3);
 
 -- --------------------------------------------------------
 

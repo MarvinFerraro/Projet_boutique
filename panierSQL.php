@@ -2,24 +2,28 @@
 require 'include/functionsSQL.php';
 include('include/head.php');
 session_start();
+$somme = 0;
 //Si le post n'est pas vide.
 if (!empty($_POST['article'])) {
 //    il stock les valeurs d'article dans la session Panier
     $_SESSION['panier'] = $_POST['article'];
 }
+if (!empty($_POST['quantity'])) {
+    $_SESSION['quantity'] = $_POST['quantity'];
+}else{
+    $_SESSION['quantity'] = 1;
+}
 
 
 //Si le panier en session n'est pas vide et si la modif
-if (!empty($_SESSION['panier']) AND empty($_POST['removeArticle'])) {
-    $somme = 0;
+if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
     ?>
     <form action="panierSQL.php" method="post">
         <?php
         foreach ($_SESSION['panier'] as $id_chose) {
-            $select_article= select_article($bdd, $id_chose);
+            $select_article = select_article($bdd, $id_chose);
 
-            while($d_article_chose = $select_article->fetch())
-            {
+            while ($d_article_chose = $select_article->fetch()) {
                 ?>
                 <div class="cadre article">
                     <h2 class="nom">Direction : <?= $d_article_chose['name'] ?></h2>
@@ -29,54 +33,99 @@ if (!empty($_SESSION['panier']) AND empty($_POST['removeArticle'])) {
                     <p class="price">Il reste encore : <?= $d_article_chose['stock'] ?> place(s)</p>
                     <p class="description"><?= $d_article_chose['description'] ?></p>
                     <p class="price_text">Poids du bagage strictement inférieur à <?= $d_article_chose['weight'] ?></p>
-                    <input type="checkbox" name="article[]" value="<?= $d_article_chose['id'] ?>">
+                    <p>Cocher pour supprimer l'aticle<input type="checkbox" name="remove_article[]"
+                                                            value="<?= $d_article_chose['id'] ?>"></p>
+                    <input class="b_quantity" type="number" min="0" max="20" name="quantity[]">
+                    <?php
+                    foreach ($_SESSION['quantity'] as $quantity_chose )
+                    {
+                        var_dump($d_article_chose['price']);
+                        var_dump($quantity_chose);
+                        $total = $d_article_chose['price'] * $quantity_chose;
+                        var_dump($total);
+                    }
+//                    if ((!empty($_SESSION['quantity'])) AND ($_SESSION['quantity'] < 20 OR $_SESSION['quantity'] > 1)) {
+//                        $price_total = $_SESSION['quantity'] * $d_article_chose['price'];
+//                        ?>
+<!--                        <p class="nb_quantity">Quantité voulu : --><?//= $_SESSION['quantity'] ?><!-- <br/>-->
+<!--                            Pour un total de : --><?//= $price_total ?><!--</p>-->
+<!--                        --><?php
+//                    } else {
+//                        $price_total = $d_article_chose['price'];
+//                        ?>
+<!--                        <p class="nb_quantity">Quantité voulu : 1 <br/>-->
+<!--                            Pour un total de : --><?//= $price_total ?><!--</p>-->
+<!--                        --><?php
+//                    }
+                    ?>
                 </div>
                 <?php
-                $somme = $d_article_chose['price'] + $somme;
+                $somme = $price_total + $somme;
             }
         }
         ?>
         <input type="submit" value="Modifier panier">
     </form>
-    <p class="priceSomme"> La somme est de <?= $somme ?></p>
+    <p class="priceSomme"> Le total du panier est de <?= $somme ?> euros</p>
     <?php
 
 
-    //Sinon si le panier en session est pas vide et le la valeur de la modif non plus
-} elseif (!empty($_POST['removeArticle']) AND !empty($_SESSION['panier'])) {
-    $removeCats = $_POST['removeArticle'];
-    $catsNew = [];
-    $somme = 0;
+    //Sinon si le panier en session est pas vide et la valeur de la modif non plus
+} elseif ((!empty($_POST['remove_article']) AND !empty($_SESSION['panier'])) OR (count($_POST['remove_article']) == 1) AND count($_SESSION['panier']) == 1) {
+    ?>
+    <form action="panierSQL.php" method="post">
+    <?php
     if (count($_SESSION['panier']) > 1) {
-        ?>
-        <form action="panierSQL.php" method="post">
-            <?php
-            foreach ($_SESSION['panier'] as $cat => $value) {
-                if (!in_array($value, $removeCats)) {
-                    array_push($catsNew, $value);
-
-                    afficheArticlePanier($cats[$value][0], $cats[$value][1], $cats[$value][2], $value);
-                    $somme = totalPanier($cats[$value][2], $somme);
+        foreach ($_SESSION['panier'] as $id) {
+            if (!in_array($id, $_POST['remove_article'])) {
+                $select_article = select_article($bdd, $id);
+                while ($d_article_chose = $select_article->fetch()) {
+                    ?>
+                    <div class="cadre article">
+                        <h2 class="nom">Direction : <?= $d_article_chose['name'] ?></h2>
+                        <img src="<?= $d_article_chose['image'] ?>" alt="<?= $d_article_chose['name'] ?>">
+                        <p class="price">Pour seulement : <?= $d_article_chose['price'] ?>
+                            <span class="price_text">(Transport compris)</span></p>
+                        <p class="price">Il reste encore : <?= $d_article_chose['stock'] ?> place(s)</p>
+                        <p class="description"><?= $d_article_chose['description'] ?></p>
+                        <p class="price_text">Poids du bagage strictement inférieur
+                            à <?= $d_article_chose['weight'] ?></p>
+                        <input type="checkbox" name="remove_article[]" value="<?= $d_article_chose['id'] ?>">
+                        <input class="b_quantity" type="number" min="0" max="20" name="quantity[]" value="<?= $_SESSION['quantity']?>">
+                    </div>
+                    <?php
+                    if (!empty($_POST['quantity'])) {
+                        $price_total = $_SESSION['quantity'] * $d_article_chose['price'];
+                        ?>
+                        <p class="nb_quantity">Quantité voulu : <?= $_SESSION['quantity'] ?> <br/>
+                            Pour un total de : <?= $price_total ?></p>
+                        <?php
+                    } elseif ((!empty($_POST['quantity'])) AND ($_POST['quantity'] > 20 OR $_POST['quantity'] <= 0)) {
+                        echo 'nike ta mere';
+                    }
+                    $somme = $d_article_chose['price'] + $somme;
                 }
             }
-            ?>
-            <input type="submit" value="Modifier panier">
+        }
+        ?>
+        <input type="submit" value="Modifier panier">
         </form>
-        <p class="priceSomme"> La somme est de <?= $somme ?></p>
+        <p class="priceSomme"> Le total du panier est de <?= $somme ?> euros</p>
         <?php
     }
+    $_SESSION['panier'] = array_diff($_SESSION['panier'], $_POST['remove_article']);
 
-    $_SESSION['panier'] = $catsNew;
+
 }
 
 if (empty($_SESSION['panier'])) {
 
-        ?>
-        <div class="emptyPanier">
-            <p><a class="returnCat" href="archive/catalogueV3.php">Catalogue</a></p>
-            <p class="price">Remplis moi ce panier</p>
-        </div>
-        <?php
+    ?>
+    <div class="emptyPanier">
+        <p class="price">Votre panier est vide</p>
+        <p class="returnCat">Aller au <a href="catalogueSQL.php">Catalogue</a></p>
+    </div>
+    <?php
 }
 ?>
 <?php

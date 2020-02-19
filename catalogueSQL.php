@@ -2,7 +2,6 @@
 require 'include/functions.php';
 require 'include/functionsSQL.php';
 include("include/head.php");
-
 $articles = list_articles($bdd);
 ?>
     <form action="panierSQL.php" method="post">
