@@ -1,8 +1,11 @@
 <?php
+session_start();
 require 'include/functionsSQL.php';
 include('include/head.php');
-session_start();
 $somme = 0;
+
+// Traitement php du session / de l'ajout d'une quantité / de la suppression d'article...
+
 //Si le post n'est pas vide.
 if (!empty($_POST['article'])) {
 //    il stock les valeurs d'article dans la session Panier
@@ -22,8 +25,7 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
         <?php
         foreach ($_SESSION['panier'] as $id_chose) {
             $select_article = select_article($bdd, $id_chose);
-
-            while ($d_article_chose = $select_article->fetch()) {
+            while ($d_article_chose = $select_article->fetch()){
                 ?>
                 <div class="cadre article">
                     <h2 class="nom">Direction : <?= $d_article_chose['name'] ?></h2>
@@ -35,31 +37,27 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
                     <p class="price_text">Poids du bagage strictement inférieur à <?= $d_article_chose['weight'] ?></p>
                     <p>Cocher pour supprimer l'aticle<input type="checkbox" name="remove_article[]"
                                                             value="<?= $d_article_chose['id'] ?>"></p>
-                    <input class="b_quantity" type="number" min="0" max="20" name="quantity[]">
-                    <?php
-                    foreach ($_SESSION['quantity'] as $quantity_chose )
-                    {
-                        var_dump($d_article_chose['price']);
-                        var_dump($quantity_chose);
-                        $total = $d_article_chose['price'] * $quantity_chose;
-                        var_dump($total);
-                    }
-//                    if ((!empty($_SESSION['quantity'])) AND ($_SESSION['quantity'] < 20 OR $_SESSION['quantity'] > 1)) {
-//                        $price_total = $_SESSION['quantity'] * $d_article_chose['price'];
-//                        ?>
-<!--                        <p class="nb_quantity">Quantité voulu : --><?//= $_SESSION['quantity'] ?><!-- <br/>-->
-<!--                            Pour un total de : --><?//= $price_total ?><!--</p>-->
-<!--                        --><?php
-//                    } else {
-//                        $price_total = $d_article_chose['price'];
-//                        ?>
-<!--                        <p class="nb_quantity">Quantité voulu : 1 <br/>-->
-<!--                            Pour un total de : --><?//= $price_total ?><!--</p>-->
-<!--                        --><?php
-//                    }
-                    ?>
+                    <input class="b_quantity" type="number" min="0" max="20" name="quantity[<?=$d_article_chose['id']?>]">
                 </div>
                 <?php
+            }
+            $prix = $bdd->query("SELECT articles.price FROM articles WHERE articles.id = '$id_chose ' ");
+            while($d_prix = $prix->fetch())
+            {
+                    var_dump($d_prix['price']);
+                    if (!empty($_SESSION['quantity'])) {
+                        $price_total = $_SESSION['quantity'] * $d_prix['price'] ;
+                        ?>
+                        <p class="nb_quantity">Quantité voulu : <?= $_SESSION['quantity'] ?> <br/>
+                            Pour un total de : <?= $price_total ?></p>
+                        <?php
+                    } else {
+                        $price_total = $d_prix;
+                        ?>
+                        <p class="nb_quantity">Quantité voulu : 1 <br/>
+                            Pour un total de : <?= $price_total ?></p>
+                        <?php
+                }
                 $somme = $price_total + $somme;
             }
         }
@@ -91,18 +89,9 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
                         <p class="price_text">Poids du bagage strictement inférieur
                             à <?= $d_article_chose['weight'] ?></p>
                         <input type="checkbox" name="remove_article[]" value="<?= $d_article_chose['id'] ?>">
-                        <input class="b_quantity" type="number" min="0" max="20" name="quantity[]" value="<?= $_SESSION['quantity']?>">
+                        <input class="b_quantity" type="number" min="0" max="20" name="quantity">
                     </div>
                     <?php
-                    if (!empty($_POST['quantity'])) {
-                        $price_total = $_SESSION['quantity'] * $d_article_chose['price'];
-                        ?>
-                        <p class="nb_quantity">Quantité voulu : <?= $_SESSION['quantity'] ?> <br/>
-                            Pour un total de : <?= $price_total ?></p>
-                        <?php
-                    } elseif ((!empty($_POST['quantity'])) AND ($_POST['quantity'] > 20 OR $_POST['quantity'] <= 0)) {
-                        echo 'nike ta mere';
-                    }
                     $somme = $d_article_chose['price'] + $somme;
                 }
             }
@@ -114,8 +103,6 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
         <?php
     }
     $_SESSION['panier'] = array_diff($_SESSION['panier'], $_POST['remove_article']);
-
-
 }
 
 if (empty($_SESSION['panier'])) {
