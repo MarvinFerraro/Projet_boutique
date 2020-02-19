@@ -4,7 +4,8 @@ require 'include/functions.php';
 require 'include/functionsSQL.php';
 include("include/head.php");
 $articles = list_articles($bdd);
-//Traitement php du post dans session avec message
+//todo
+// Traitement php du post dans session avec message
 ?>
     <form action="panierSQL.php" method="post">
         <?php

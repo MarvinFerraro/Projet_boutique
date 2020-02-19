@@ -3,8 +3,9 @@ session_start();
 require 'include/functionsSQL.php';
 include('include/head.php');
 $somme = 0;
-
+//todo
 // Traitement php du session / de l'ajout d'une quantité / de la suppression d'article...
+// faire marcher ce putain de panier tocard
 
 //Si le post n'est pas vide.
 if (!empty($_POST['article'])) {
