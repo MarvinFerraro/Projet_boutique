@@ -53,8 +53,11 @@ function list_of_orders_user($bdd, $user)
 
 
 
-
-
+//  ----------------------------------Function ajouter une nouvelle commande -------------------------------------------
+function add_order()
+{
+    
+}
 
 
 
