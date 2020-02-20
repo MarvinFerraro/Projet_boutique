@@ -26,7 +26,7 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
     <form action="panierSQL.php" method="post">
         <?php
         foreach ($_SESSION['panier'] as $id_chose) {
-            $select_article = select_article($bdd, $id_chose);
+            $select_article = select_article_panier($bdd, $id_chose);
             while ($d_article_chose = $select_article->fetch()) {
                 ?>
                 <div class="cadre article">
@@ -65,7 +65,7 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
         if (count($_SESSION['panier']) > 1) {
             foreach ($_SESSION['panier'] as $id) {
                 if (!in_array($id, $_POST['remove_article'])) {
-                    $select_article = select_article($bdd, $id);
+                    $select_article = select_article_panier($bdd, $id);
                     while ($d_article_chose = $select_article->fetch()) {
                         ?>
                         <div class="cadre article">

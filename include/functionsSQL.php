@@ -21,9 +21,14 @@ function list_articles($bdd)
     return $articles;
 }
 // ----------------------------------Function afficher l'articles selectionné de la tables articles--------------------------
-function select_article($bdd,$id)
+function select_article_panier($bdd,$id)
 {
     $select_art = $bdd->query("SELECT * FROM `articles` WHERE articles.id ='$id' ");
+    return $select_art;
+}
+function select_article_cata($bdd,$id)
+{
+    $select_art = $bdd->query("SELECT articles.id , articles.name FROM `articles` WHERE articles.id ='$id' ");
     return $select_art;
 }
 

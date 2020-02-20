@@ -4,41 +4,26 @@ require 'include/functions.php';
 require 'include/functionsSQL.php';
 include("include/head.php");
 //todo
-// Traitement php du post dans session avec message
+// Afficher l'article selectionné avec le nom
 
-if (!is_array($_SESSION['panier']) OR is_null($_SESSION['panier'])) {
+if (!is_array($_SESSION['panier']) OR !isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 }
-
-if (!empty($_POST['article'])) {
+if (!empty($_POST['article']) AND isset($_POST['article'])) {
     foreach ($_POST['article'] as $id_item) {
         array_push($_SESSION['panier'], $id_item);
+        $liste_article_id = select_article_cata($bdd, $id_item);
+        while ($d_name = $liste_article_id->fetch()) {
+            $ls_name = [];
+            $ls_name [] = array_push($ls_name, $d_name);
+            echo 'Le trajet pour : ' . $ls_name[0]['name'] . ' est bien ajouté à votre article <br/>';
+        }
     }
-    $liste_article_id = select_article($bdd, $id_item);
-    while ($d_name = $liste_article_id->fetch()) {
-        ?>
-        <p class="price">L'(es) article(s) ont été ajouté(s)</p>
-        <?php
-    }
-
-    // todo Affichage article avec leur nom
-//    $liste_article_id = select_article($bdd, $id_item);
-//    while ($d_name = $liste_article_id->fetchall()) {
-//        ?>
-    <!--        <p class="errorPanier">--><?php
-    //            foreach ($d_name as $id_item) {
-    //                $id_item['name'];
-    //            }
-    //            ?><!-- à bien été ajouté(s)</p>-->
-    <!--        --><?php
-//    }
 }
-
-
-if (isset($_POST['article']) AND empty($_POST['article'])) {
-    if (empty($_POST['article'])) {
-        echo('<p class="price">Veuillez cocher au moins un élément</p>');
-    }
+$_POST['article'] = [];
+var_dump($_POST['article']);
+if (empty($_POST['article'])) {
+    echo('<p class="price"> Veuillez cocher une destination</p>');
 }
 
 ?>
