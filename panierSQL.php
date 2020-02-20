@@ -42,7 +42,6 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
                 </div>
                 <?php
                 $somme = $d_article_chose['price'] + $somme;
-
             }
         }
         ?>

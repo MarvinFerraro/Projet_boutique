@@ -13,25 +13,34 @@ function select_user($bdd)
     return $users;
 }
 
-
 // ----------------------------------Function afficher tout les articles de la tables articles--------------------------
 function list_articles($bdd)
 {
     $articles = $bdd->query('SELECT * FROM articles');
     return $articles;
 }
-// ----------------------------------Function afficher l'articles selectionné de la tables articles--------------------------
-function select_article_panier($bdd,$id)
+
+// fonction maxi bestof++
+function select_article_by_ids(PDO $bdd, Array $ids): Array
 {
-    $select_art = $bdd->query("SELECT * FROM `articles` WHERE articles.id ='$id' ");
-    return $select_art;
+    return $bdd->query("SELECT articles.name FROM articles WHERE articles.id IN (" . implode(', ', $ids) . ") ")->fetchAll();
 }
-function select_article_cata($bdd,$id)
+
+// ----------------------------------Function afficher l'articles selectionné de la tables articles--------------------------
+function select_article_panier($bdd, $id)
+{
+    $select_art = $bdd->prepare("SELECT * FROM `articles` WHERE articles.id = :id ");
+    return $select_art->execute(array(
+            ':id' => $id,
+        )
+    );
+}
+
+function select_article_cata($bdd, $id)
 {
     $select_art = $bdd->query("SELECT articles.id , articles.name FROM `articles` WHERE articles.id ='$id' ");
     return $select_art;
 }
-
 
 // -----------------------------------Function afficher le total de tout les articles en stock--------------------------
 function select_price_all_order($bdd)
@@ -56,32 +65,29 @@ function list_of_orders_user($bdd, $user)
 }
 
 
-
-
 //  ----------------------------------Function ajouter une nouvelle commande -------------------------------------------
 function add_order()
 {
-    
+
 }
 
 
-
 //  -----------------------------------Function ajouter un nouveau produit ---------------------------------------------
-function add_article($bdd,$article)
+function add_article($bdd, $article)
 {
     $req = $bdd->prepare('INSERT INTO articles(name, description, price, weight, image, stock, for_sale,Categories_id)
     VALUES(:name,:description,:price,:weight,:image,:stock,:for_sale,:Categories_id)');
 
     $req->execute(array(
-        ':name' => $article[0],
+        ':name' => $article['name'],
         ':description' => $article[1],
         ':price' => $article[2],
         ':weight' => $article[3],
         ':image' => $article[4],
         ':stock' => $article[5],
-        ':for_sale'=> $article[6],
+        ':for_sale' => $article[6],
         ':Categories_id' => $article[7]
-        ));
+    ));
 }
 
 
