@@ -21,7 +21,7 @@ foreach ($_SESSION['panier'] as $key => $article_id) {
     }
 }
 
-if (empty($_SESSION['panier'])) {
+if (!isset($_POST['remove_article']) AND empty($_SESSION['panier'])) {
     ?>
     <div class="emptyPanier">
         <p class="price">Votre panier est vide</p>
@@ -119,14 +119,7 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
     }
     $_SESSION['quantity'] = $new_quantities;
 }
-if (!isset($_POST['remove_article']) AND empty($_SESSION['panier']) AND (count($_POST['remove_article']) >= 1)) {
-    ?>
-    <div class="emptyPanier">
-        <p class="price">Votre panier est vide</p>
-        <p class="returnCat">Aller au <a href="catalogueSQL.php">Catalogue</a></p>
-    </div>
-    <?php
-}
+
 ?>
 <?php
 include('include/footer.php');

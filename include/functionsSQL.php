@@ -31,51 +31,55 @@ function select_article_cata($bdd, $id)
 }
 
 
-
-
 //  ----------------------------------Function ajouter une nouvelle commande -------------------------------------------
 function add_order($bdd, $orders)
 {
- $req = $bdd->prepare('INSERT INTO orders(numero, date, price, total_weight,User_id)
-    VALUES(:numero,:CURRENT_DATE , :price, :total_weight, 1) ');
-    $req->exectute(array(
-        ':numero' => $orders['numero'],
-        ':price' => $orders['price'],
-        ':total_weight' => $orders['total_weight']
+    $numero = 'ML';
+    $total_weight = 15;
+    $req = $bdd->prepare('INSERT INTO orders(numero, price, total_weight,Users_id)
+    VALUES(:numero, :price, :total_weight, :Users_id) ');
+    $req->execute(array(
+        ':numero' => $numero,
+        ':price' => intval($orders['price']),
+        ':total_weight' => $total_weight,
+        ':Users_id' => 1,
     ));
 }
 
-function add_article_orders($bdd)
+function add_article_orders($bdd, $id, $quantity)
 {
-    $req = $bdd->prepare('INSERT INTO articles_orders(Articles_id,Orders_id,qunatity)');
+    $req = $bdd->prepare('INSERT INTO articles_orders(Articles_id,Orders_id,quantity) 
+    VALUES(:Articles_id,:Orders_id,:quantity)');
     $req->execute(array(
-
+        ':Articles_id' => $id,
+        ':Orders_id' => 2,
+        ':quantity' => $quantity,
     ));
 }
 
 
 //  -----------------------------------Function ajouter un nouveau produit ---------------------------------------------
-function add_article($bdd, $article)
+function add_user($bdd, $user_info)
 {
-    $req = $bdd->prepare('INSERT INTO articles(name, description, price, weight, image, stock, for_sale,Categories_id)
-    VALUES(:name,:description,:price,:weight,:image,:stock,:for_sale,:Categories_id)');
+    $req = $bdd->prepare('INSERT INTO users(name, email, adress, postal_code, city)
+    VALUES(:name,:email, :adress,:postal_code,:city)');
 
     $req->execute(array(
-        ':name' => $article['name'],
-        ':description' => $article['description'],
-        ':price' => $article['price'],
-        ':weight' => $article['weight'],
-        ':image' => $article['image'],
-        ':stock' => $article['stock'],
-        ':for_sale' => $article['for_sale'],
-        ':Categories_id' => $article['Categories_id']
+        ':name' => $user_info[0],
+        ':email' => $user_info[1],
+        ':adress' => $user_info[2],
+        ':postal_code' => intval($user_info[3]),
+        ':city' => $user_info[4],
     ));
 }
 
 
 //  -----------------------------------Function supprimer un nouveau produit -------------------------------------------
-function delete_article($bdd, $id_article)
+function delete_user($bdd, $user_info)
 {
-    $req = $bdd->query("DELETE FROM articles WHERE id = '$id_article'");
+    $name = $user_info;
+    $req = $bdd->prepare("DELETE FROM users WHERE name LIKE :user_name%");
+    $req->bindValue(':user_name', $name);
+    $req->execute();
 }
 
