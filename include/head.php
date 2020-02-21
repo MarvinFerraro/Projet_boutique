@@ -15,7 +15,7 @@
             <li><a href="index.php">Accueil</a></li>
             <li><a href="catalogueSQL.php">Catalogue</a></li>
             <li><a href="panierSQL.php">Panier</a></li>
-            <li><a href="index.php" >Ajout destination</a></li>
+            <li><a href="addArticle.php" >Ajout destination</a></li>
         </ul>
     </nav>
 

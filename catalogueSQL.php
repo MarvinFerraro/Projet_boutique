@@ -11,15 +11,15 @@ if ($_POST AND !isset($_POST['article'])) {
     echo('<p class="price"> Veuillez cocher une destination</p>');
 }
 
-if(!isset($_SESSION['panier'])) {
+if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 }
 
-if (!empty($_POST['article']) AND isset($_POST['article'])) {
+if (isset($_POST['article']) AND !empty($_POST['article'])) {
     $_SESSION['panier'] = $_POST['article'];
-    $ls_article = select_article_by_ids($bdd,$_POST['article']);
+    $ls_article = select_article_by_ids($bdd, $_POST['article']);
     foreach ($ls_article as $article) {
-            echo 'Le trajet pour : ' . $article['name'] . ' est bien ajouté à votre article <br/>';
+        echo('<p class="price"> Le trajet pour : ' . $article['name'] . ' est bien ajouté à votre article</p><br/>');
     }
 }
 

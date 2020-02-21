@@ -5,15 +5,7 @@ try {
     die('Erreur ; ' . $e->getMessage());
 }
 
-// --------------------------------- Function afficher tout users de la table users ------------------------------------
 
-function select_user($bdd)
-{
-    $users = $bdd->query('SELECT * FROM users');
-    return $users;
-}
-
-// ----------------------------------Function afficher tout les articles de la tables articles--------------------------
 function list_articles($bdd)
 {
     $articles = $bdd->query('SELECT * FROM articles');
@@ -29,11 +21,7 @@ function select_article_by_ids(PDO $bdd, Array $ids): Array
 // ----------------------------------Function afficher l'articles selectionné de la tables articles--------------------------
 function select_article_panier($bdd, $id)
 {
-    $select_art = $bdd->prepare("SELECT * FROM `articles` WHERE articles.id = :id ");
-    return $select_art->execute(array(
-            ':id' => $id,
-        )
-    );
+    return $select_art = $bdd->query("SELECT * FROM `articles` WHERE articles.id = '$id' ")->fetchALl();
 }
 
 function select_article_cata($bdd, $id)
@@ -42,33 +30,27 @@ function select_article_cata($bdd, $id)
     return $select_art;
 }
 
-// -----------------------------------Function afficher le total de tout les articles en stock--------------------------
-function select_price_all_order($bdd)
-{
-    $price_all_order = $bdd->query('
-    SELECT SUM(articles.price * articles_orders.quantity) , articles_orders.Orders_id
-    FROM articles INNER JOIN articles_orders ON articles.id = articles_orders.Articles_id
-    GROUP BY articles_orders.Orders_id
- ');
-    return $price_all_order;
-}
 
-
-//  -----------------------------------Function afficher toute les commandes d'un users- -------------------------------
-function list_of_orders_user($bdd, $user)
-{
-    $list_orders_users = $bdd->query("
-    SELECT * FROM orders INNER JOIN users on orders.Users_id = Users.id
-    WHERE users.name LIKE '$user%'
-    ");
-    return $list_orders_users;
-}
 
 
 //  ----------------------------------Function ajouter une nouvelle commande -------------------------------------------
-function add_order()
+function add_order($bdd, $orders)
 {
+ $req = $bdd->prepare('INSERT INTO orders(numero, date, price, total_weight,User_id)
+    VALUES(:numero,:CURRENT_DATE , :price, :total_weight, 1) ');
+    $req->exectute(array(
+        ':numero' => $orders['numero'],
+        ':price' => $orders['price'],
+        ':total_weight' => $orders['total_weight']
+    ));
+}
 
+function add_article_orders($bdd)
+{
+    $req = $bdd->prepare('INSERT INTO articles_orders(Articles_id,Orders_id,qunatity)');
+    $req->execute(array(
+
+    ));
 }
 
 
@@ -80,13 +62,13 @@ function add_article($bdd, $article)
 
     $req->execute(array(
         ':name' => $article['name'],
-        ':description' => $article[1],
-        ':price' => $article[2],
-        ':weight' => $article[3],
-        ':image' => $article[4],
-        ':stock' => $article[5],
-        ':for_sale' => $article[6],
-        ':Categories_id' => $article[7]
+        ':description' => $article['description'],
+        ':price' => $article['price'],
+        ':weight' => $article['weight'],
+        ':image' => $article['image'],
+        ':stock' => $article['stock'],
+        ':for_sale' => $article['for_sale'],
+        ':Categories_id' => $article['Categories_id']
     ));
 }
 
