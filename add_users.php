@@ -58,7 +58,6 @@ if (isset($_POST['user_delete']) AND !empty($_POST['user_delete'])) {
     if (!empty($_SESSION['user_delete'])) {
         $user_delete = $_SESSION['user_delete'];
         delete_user($bdd, $user_delete);
-        var_dump($user_delete);
     }
 }
 

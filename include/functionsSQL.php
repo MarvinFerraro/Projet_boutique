@@ -77,9 +77,6 @@ function add_user($bdd, $user_info)
 //  -----------------------------------Function supprimer un nouveau produit -------------------------------------------
 function delete_user($bdd, $user_info)
 {
-    $name = $user_info;
-    $req = $bdd->prepare("DELETE FROM users WHERE name LIKE :user_name%");
-    $req->bindValue(':user_name', $name);
+    $req = $bdd->prepare("DELETE FROM users WHERE name LIKE '$user_info%'");
     $req->execute();
 }
-
