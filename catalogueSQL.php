@@ -30,9 +30,7 @@ $cata = displayCatalogue($bdd)
         <?php
         // On créait une boucle sur l'objet cata qui contient tout les objects article, on dans cette boucle
         // on affiche la view
-        foreach($cata as $article) {
-            var_dump($article);
-            die;
+        foreach ($cata as $article) {
             displayArticle($article);
         } ?>
         <input class="input_float" type="submit" value="Envoyer">

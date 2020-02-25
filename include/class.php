@@ -1,6 +1,5 @@
 <?php
 
-
 class Article
 {
     private $id;
@@ -116,16 +115,18 @@ class Article
 class Catalogue
 {
     public $cat = [];
+
     public function __construct($bdd)
     {
         $all_articles = list_articles($bdd);
-        foreach($all_articles as $article_inf) {
-            $article = new Article($article_inf['id'] ,$article_inf['name'],$article_inf['description'],$article_inf['price'],
-                $article_inf['image'], $article_inf['weight'],$article_inf['stock'],$article_inf['for_sale'],
+        foreach ($all_articles as $article_inf) {
+            $article = new Article($article_inf['id'], $article_inf['name'], $article_inf['description'], $article_inf['price'],
+                $article_inf['image'], $article_inf['weight'], $article_inf['stock'], $article_inf['for_sale'],
                 $article_inf['Categories_id']);
             $this->cat[] = $article;
         }
     }
+
     public function getCat()
     {
         return $this->cat;
@@ -136,26 +137,28 @@ class Catalogue
 
 class Client
 {
-private $id;
-private $name;
-private $email;
-private $adress;
-private $postal_code;
-private $city;
+    private $id;
+    private $name;
+    private $email;
+    private $adress;
+    private $postal_code;
+    private $city;
 
-public function __construct($id,$name,$email,$adress,$postal_code,$city)
-{
-    $this->id = $id;
-    $this->name = $name;
-    $this->email = $email;
-    $this->adress = $adress;
-    $this->postal_code = $postal_code;
-    $this->city = $city;
-}
+    public function __construct($id, $name, $email, $adress, $postal_code, $city)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->adress = $adress;
+        $this->postal_code = $postal_code;
+        $this->city = $city;
+    }
+
     public function getId()
     {
         return $this->id;
     }
+
     public function getName()
     {
         return $this->name;
@@ -165,38 +168,47 @@ public function __construct($id,$name,$email,$adress,$postal_code,$city)
     {
         return $this->email;
     }
+
     public function getAdress()
     {
         return $this->adress;
     }
+
     public function getPostalCode()
     {
         return $this->postal_code;
     }
+
     public function getCity()
     {
         return $this->city;
     }
+
     public function setId($id): void
     {
         $this->id = $id;
     }
+
     public function setName($name): void
     {
         $this->name = $name;
     }
+
     public function setEmail($email): void
     {
         $this->email = $email;
     }
+
     public function setAdress($adress): void
     {
         $this->adress = $adress;
     }
+
     public function setPostalCode($postal_code): void
     {
         $this->postal_code = $postal_code;
     }
+
     public function setCity($city): void
     {
         $this->city = $city;
@@ -207,16 +219,18 @@ public function __construct($id,$name,$email,$adress,$postal_code,$city)
 
 class ListeClient
 {
-    public $ls_users =[];
+    public $ls_users = [];
+
     public function __construct($bdd)
     {
         $ls_users = list_all_user($bdd);
         foreach ($ls_users as $users) {
-            $user = new Client($users['id'],$users['name'],$users['email'],$users['adress'],
-                $users['postal_code'],$users['city']);
+            $user = new Client($users['id'], $users['name'], $users['email'], $users['adress'],
+                $users['postal_code'], $users['city']);
             $this->ls_users[] = $user;
         }
     }
+
     public function getLs_users()
     {
         return $this->ls_users;

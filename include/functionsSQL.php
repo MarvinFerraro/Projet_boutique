@@ -65,7 +65,6 @@ function list_all_user($bdd)
 }
 
 
-
 //  -----------------------------------Function ajouter un nouveau produit ---------------------------------------------
 function add_user($bdd, $user_info)
 {
