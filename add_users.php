@@ -2,48 +2,6 @@
 session_start();
 require 'include/functionsSQL.php';
 include("include/head.php");
-//$messageLoc = '';
-//$messagePrice = '';
-//$messagePict = '';
-//$error = false;
-//if (!empty($_POST)) {
-//    $yourPrice = $_POST['yourPrice'];
-//    $yourLocation = $_POST['yourLocation'];
-//
-//    if (empty($yourLocation)) {
-//        $messageLoc = 'Veuilliez remplir le champ';
-//        $error = true;
-//
-//    } elseif (empty($yourPrice)) {
-//        $error = true;
-//        $messagePrice = 'Veuilliez remplir le champ';
-//
-//    } elseif ($yourPrice < 0) {
-//        $error = true;
-//        $messagePrice = 'Le prix doit être superieur à 0 ! (On déconne pas quand même)';
-//    } elseif (!is_numeric($yourPrice)) {
-//        $error = true;
-//        $messagePrice = 'On ta dit un prix sans virgule...';
-//    }
-//}
-//if (!empty($_FILES)) {
-//    $yourFiles = $_FILES['yourPict'];
-//    if (isset($_FILES['yourPict']) AND $_FILES['yourPict']['error'] == 0) {
-//        if ($_FILES['yourPict']['size'] <= 1000000) {
-//
-//            $infosfichier = pathinfo($_FILES['yourPict']['name']);
-//            $extension_upload = $infosfichier['extension'];
-//            $extensions_autorisees = array('jpg', 'jpeg', 'png');
-//            if (in_array($extension_upload, $extensions_autorisees)) {
-//                move_uploaded_file($_FILES['yourPict']['tmp_name'], 'img/imgtmp/' . basename($_FILES['yourPict']['name']));
-//
-//            }
-//        }
-//    } else {
-//        $error = true;
-//        $messagePict = 'Photo non valide';
-//    }
-//}
 
 if (isset($_POST['users_info']) AND !empty($_POST['users_info'])) {
     $_SESSION['user_info'] = $_POST['users_info'];

@@ -8,9 +8,9 @@ try {
 
 function list_articles($bdd)
 {
-    $articles = $bdd->query('SELECT * FROM articles');
-    return $articles;
+    return $bdd->query('SELECT * FROM articles')->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 // fonction maxi bestof++
 function select_article_by_ids(PDO $bdd, Array $ids): Array
@@ -57,6 +57,14 @@ function add_article_orders($bdd, $id, $quantity)
     ));
 }
 
+//  -----------------------------------Function lister tout les users ---------------------------------------------
+
+function list_all_user($bdd)
+{
+    return $bdd->query('SELECT * FROM users')->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 
 //  -----------------------------------Function ajouter un nouveau produit ---------------------------------------------
 function add_user($bdd, $user_info)
@@ -74,7 +82,7 @@ function add_user($bdd, $user_info)
 }
 
 
-//  -----------------------------------Function supprimer un nouveau produit -------------------------------------------
+//  -----------------------------------Function supprimer un user -------------------------------------------
 function delete_user($bdd, $user_info)
 {
     $req = $bdd->prepare("DELETE FROM users WHERE name LIKE '$user_info%'");

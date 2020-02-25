@@ -1,5 +1,4 @@
 <?php
-
 function listCats()
 {
 
@@ -12,17 +11,24 @@ function listCats()
     return $cats;
 }
 
-function afficheArticlePanier($name, $img, $price, $value){
+function displayArticle($article){
     ?>
     <div class="cadre article">
-        <h2 class="nom">Adresse <?= $name ?></h2>
-        <img src='<?= $img ?>' alt="Photo de '<?= $name ?> ">
-        <p class="price">Pour seulement : <?= $price ?> € <span class="price_text">(Transport compris)</span>
-        </p>
-        <p class="info">Cocher pour supprimer un article</p>
-        <input class="checkBox" type="checkbox" name="removeArticle[]" value="<?= $value ?>" id="">
+        <h2 class="nom">Direction : <?=$article->getName() ?></h2>
+        <img src="<?= $article->getImg() ?>" alt="<?= $article->getName() ?>">
+        <p class="price">Pour seulement : <?= $article->getPrice() ?>
+            <span class="price_text">(Transport compris)</span></p>
+        <p class="price">Il reste encore : <?= $article->getStock() ?> place(s)</p>
+        <p class="description"><?= $article->getDescription() ?></p>
+        <p class="price_text">Poids du bagage strictement inférieur à <?= $article->getWeight() ?></p>
+        <input type="hidden" name="cacher" value="1">
+        <input type="checkbox" name="article[]" value="<?= $article->getId() ?>">
     </div>
 <?php
+}
+function displayCatalogue($bdd) {
+    $cata_test = new Catalogue($bdd);
+     return $cata_test->getCat();
 }
 
 

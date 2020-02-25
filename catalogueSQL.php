@@ -1,11 +1,10 @@
 <?php
 session_start();
-error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-require 'include/functions.php';
 require 'include/functionsSQL.php';
+require 'include/class.php';
+require 'include/functions.php';
 include("include/head.php");
-//todo
-// Afficher l'article selectionné avec le nom
+
 
 if ($_POST AND !isset($_POST['article'])) {
     echo('<p class="price"> Veuillez cocher une destination</p>');
@@ -23,26 +22,21 @@ if (isset($_POST['article']) AND !empty($_POST['article'])) {
     }
 }
 
+
+// On instancie un nouveau catalogue grâce à la function displayCatalogue et on le stock dans $cata.
+$cata = displayCatalogue($bdd)
 ?>
     <form action="catalogueSQL.php" method="post">
         <?php
-        $articles = list_articles($bdd);
-        while ($d_article = $articles->fetch()) {
-            ?>
-            <div class="cadre article">
-                <h2 class="nom">Direction : <?= $d_article['name'] ?></h2>
-                <img src="<?= $d_article['image'] ?>" alt="<?= $d_article['name'] ?>">
-                <p class="price">Pour seulement : <?= $d_article['price'] ?>
-                    <span class="price_text">(Transport compris)</span></p>
-                <p class="price">Il reste encore : <?= $d_article['stock'] ?> place(s)</p>
-                <p class="description"><?= $d_article['description'] ?></p>
-                <p class="price_text">Poids du bagage strictement inférieur à <?= $d_article['weight'] ?></p>
-                <input type="hidden" name="cacher" value="1">
-                <input type="checkbox" name="article[]" value="<?= $d_article['id'] ?>">
-            </div>
-            <?php
+        // On créait une boucle sur l'objet cata qui contient tout les objects article, on dans cette boucle
+        // on affiche la view
+        foreach($cata as $article) {
+            var_dump($article);
+            die;
+            displayArticle($article);
         } ?>
         <input class="input_float" type="submit" value="Envoyer">
     </form>
+
 
 <?php include("include/footer.php") ?>
