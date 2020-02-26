@@ -1,5 +1,5 @@
 <?php
-include("include/head.php")
+include("include/preset/head.php")
 ?>
 
 <form method="post" action="displayArticle.php" enctype="multipart/form-data">
@@ -22,6 +22,6 @@ include("include/head.php")
 </form>
 
 <?php
-include("include/footer.php")
+include("include/preset/footer.php")
 ?>
 

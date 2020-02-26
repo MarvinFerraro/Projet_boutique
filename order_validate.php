@@ -1,7 +1,7 @@
 <?php
 session_start();
 require 'include/functionsSQL.php';
-include('include/head.php');
+include('include/preset/head.php');
 $price_total = $_SESSION['somme'];
 $orders= [
     'price' => $price_total,
@@ -16,4 +16,4 @@ foreach ($_SESSION['quantity'] as $id => $quantity) {
 <p class="price">Merci ! Votre commande a bien été prise en compte.</p>
 
 <?php
-include('include/footer.php');
+include('include/preset/footer.php');

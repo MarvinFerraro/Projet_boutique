@@ -1,9 +1,10 @@
 <?php
 session_start();
 require 'include/functionsSQL.php';
-require 'include/class.php';
+require 'include/class/Catalogue.php';
 require 'include/functions.php';
-include("include/head.php");
+
+include("include/preset/head.php");
 
 
 if ($_POST AND !isset($_POST['article'])) {
@@ -22,19 +23,15 @@ if (isset($_POST['article']) AND !empty($_POST['article'])) {
     }
 }
 
-
-// On instancie un nouveau catalogue grâce à la function displayCatalogue et on le stock dans $cata.
-$cata = displayCatalogue($bdd)
 ?>
     <form action="catalogueSQL.php" method="post">
         <?php
         // On créait une boucle sur l'objet cata qui contient tout les objects article, on dans cette boucle
         // on affiche la view
-        foreach ($cata as $article) {
-            displayArticle($article);
-        } ?>
+        displayCatalogue(new Catalogue($bdd));
+        ?>
         <input class="input_float" type="submit" value="Envoyer">
     </form>
 
 
-<?php include("include/footer.php") ?>
+<?php include("include/preset/footer.php") ?>

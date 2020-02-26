@@ -8,7 +8,7 @@ $cat = [
 
 ?>
 
-<?php include("include/head.php") ?>
+<?php include("include/preset/head.php") ?>
 <!--Double for pour parcourir le tableau; le i parcours les indices $cat et le j parcours les valeurs de $cat-->
 <?php
 
@@ -22,4 +22,4 @@ for ($i = 0; $i < count($cat); $i++) { ?>
 };
 ?>
 
-<?php include("include/footer.php") ?>
+<?php include("include/preset/footer.php") ?>

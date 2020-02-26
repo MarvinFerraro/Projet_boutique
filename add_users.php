@@ -1,7 +1,7 @@
 <?php
 session_start();
 require 'include/functionsSQL.php';
-include("include/head.php");
+include("include/preset/head.php");
 
 if (isset($_POST['users_info']) AND !empty($_POST['users_info'])) {
     $_SESSION['user_info'] = $_POST['users_info'];
@@ -76,6 +76,6 @@ if (isset($_POST['user_delete']) AND !empty($_POST['user_delete'])) {
 <input type="submit" value="Supprimer ">
 </form>
 <?php
-include("include/footer.php")
+include("include/preset/footer.php")
 ?>
 

@@ -6,7 +6,7 @@ $image_url = ["img/chiang_mai.jpg","img/bangkok.jpg","img/lampang.jpg"];
 
 ?>
 
-<?php include("include/head.php") ?>
+<?php include("include/preset/head.php") ?>
 <!--Créations de ma boucle for pour tout mes divs de contenu-->
 <?php
 for($i=0 ; $i< count($name); $i++) {?>
@@ -18,4 +18,4 @@ for($i=0 ; $i< count($name); $i++) {?>
     <!--fin du for-->
 <?php };?>
 
-<?php include("include/footer.php") ?>
+<?php include("include/preset/footer.php") ?>

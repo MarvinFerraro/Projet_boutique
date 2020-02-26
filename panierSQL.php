@@ -2,7 +2,7 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 require 'include/functionsSQL.php';
-include('include/head.php');
+include('include/preset/head.php');
 //todo
 // Traitement php du session / de l'ajout d'une quantité / de la suppression d'article...
 $somme = 0;
@@ -122,4 +122,4 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
 
 ?>
 <?php
-include('include/footer.php');
+include('include/preset/footer.php');

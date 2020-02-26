@@ -1,7 +1,7 @@
 <?php
 // Init array multy
 require 'include/functionQuantite.php';
-include("include/head.php") ?>
+include("include/preset/head.php") ?>
 
 <?php
     $cats = listCats();
@@ -13,4 +13,4 @@ include("include/head.php") ?>
         ?>
         <input type="submit" value="Envoyer">
     </form>
-<?php include("include/footer.php") ?>
+<?php include("include/preset/footer.php") ?>

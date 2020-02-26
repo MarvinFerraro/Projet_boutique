@@ -1,6 +1,6 @@
 <?php
 require 'include/functions.php';
-include('include/head.php');
+include('include/preset/head.php');
 session_start();
 $cats = listCats();
 //Si le post n'est pas vide.
@@ -66,4 +66,4 @@ if (empty($_SESSION['panier'])) {
 }
 ?>
 <?php
-include('include/footer.php');
+include('include/preset/footer.php');

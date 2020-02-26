@@ -1,4 +1,5 @@
 <?php
+
 function listCats()
 {
 
@@ -10,8 +11,7 @@ function listCats()
 
     return $cats;
 }
-
-function displayArticle($article)
+function displayArticle(Article $article)
 {
     ?>
     <div class="cadre article">
@@ -28,13 +28,14 @@ function displayArticle($article)
     <?php
 }
 
-function displayCatalogue($bdd)
+function displayCatalogue(Catalogue $catalogue)
 {
-    $cata_test = new Catalogue($bdd);
-    return $cata_test->getCat();
+    foreach ($catalogue->getCat() as $article) {
+        displayArticle($article);
+    }
 }
 
-function displayUser($user)
+function displayUser( CLient $user)
 {
     ?>
     <div class="card " style="width: 18rem;">
@@ -52,10 +53,11 @@ function displayUser($user)
     <?php
 }
 
-function displayLsUsers($bdd)
+function displayLsUsers(ListeClient  $listeClient)
 {
-    $ls_users = new ListeClient($bdd);
-    return $ls_users->getLs_users();
+    foreach($listeClient->getLs_users() as $ls_user) {
+        displayUser($ls_user);
+    }
 }
 
 function totalPanier($priceT, $somme)
