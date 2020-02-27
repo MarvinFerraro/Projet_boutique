@@ -24,6 +24,13 @@ function displayArticle(Article $article)
         <p class="price">Il reste encore : <?= $article->getStock() ?> place(s)</p>
         <p class="description"><?= $article->getDescription() ?></p>
         <p class="price_text">Poids du bagage strictement inférieur à <?= $article->getWeight() ?></p>
+        <?php
+        if (is_a($article, 'Shoes')) {
+            echo(' <p class="price">Nous vous conseillons une paire de : <br/>' . $article->getStyleShoe() . '.</p>');
+        } elseif (method_exists($article, 'getStyleCloth')) {
+            echo(' <p class="price">Nous vous conseillons : <br/>' . $article->getStyleCloth() . '.</p>');
+        }
+        ?>
         <input type="hidden" name="cacher" value="1">
         <p class="price"><input type="checkbox" name="article[]" value="<?= $article->getId() ?>"></p>
     </div>

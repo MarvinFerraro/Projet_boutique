@@ -3,44 +3,45 @@ require 'Article.php';
 
 class Shoes extends Article
 {
-    private $shoe_size;
+    private $style_shoe;
 
-    public function __construct($id, $name, $description, $price, $img, $weight, $stock, $for_sale, $Categories_id, $shoe_size)
+    public function __construct($id, $name, $description, $price, $img, $weight, $stock, $for_sale, $Categories_id, $style_shoe)
     {
         parent::__construct($id, $name, $description, $price, $img, $weight, $stock, $for_sale, $Categories_id);
-        $this->shoe_size = $shoe_size;
+        $this->style_shoe = $style_shoe;
     }
 
-    public function getShoeSize()
+    public function getStyleShoe()
     {
-        return $this->shoe_size;
+        return $this->style_shoe;
+    }
+    public function setStyleShoe($style_shoe): void
+    {
+        $this->style_shoe = $style_shoe;
     }
 
-    public function setShoeSize($shoe_size): void
-    {
-        $this->shoe_size = $shoe_size;
-    }
 }
 
 
 class Cloth extends Article
 {
-    private $size;
+    private $style_cloth;
 
-    public function __construct($id, $name, $description, $price, $img, $weight, $stock, $for_sale, $Categories_id, $size)
+    public function __construct($id, $name, $description, $price, $img, $weight, $stock, $for_sale, $Categories_id, $style_cloth)
     {
         parent::__construct($id, $name, $description, $price, $img, $weight, $stock, $for_sale, $Categories_id);
-        $this->size = $size;
+        $this->style_cloth = $style_cloth;
     }
 
-    public function getSize()
+    public function getStyleCloth()
     {
-        return $this->size;
+        return $this->style_cloth;
     }
 
-    public function setSize($size): void
+    public function setStyleCloth($style_cloth): void
     {
-        $this->size = $size;
+        $this->style_cloth = $style_cloth;
     }
+
 
 }
