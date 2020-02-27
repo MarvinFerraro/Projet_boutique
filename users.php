@@ -7,9 +7,9 @@ include("include/preset/head.php");
 
 
 ?>
-    <div class=" boite_User">
+    <div class="boite_User">
         <?php
-        displayLsUsers(new ListeClient($bdd));
+        displayLsUsers(new ListeClient(list_all_user($bdd)));
         ?>
     </div>
 <?php

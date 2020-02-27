@@ -8,9 +8,11 @@ try {
 
 function list_articles($bdd)
 {
-    return $bdd->query('SELECT * FROM articles')->fetchAll(PDO::FETCH_ASSOC);
+    return $bdd->query('SELECT articles.*, cloth.style_cloth, shoes.style_shoe FROM articles 
+LEFT JOIN cloth on articles.id = cloth.article_id 
+LEFT JOIN shoes on articles.id = shoes.article_id
+GROUP BY articles.id')->fetchAll(PDO::FETCH_ASSOC);
 }
-
 
 // fonction maxi bestof++
 function select_article_by_ids(PDO $bdd, Array $ids): Array

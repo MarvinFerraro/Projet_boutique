@@ -35,26 +35,26 @@ h1 {
     color: white;
 }
 
-.cadre.article {
-    text-align: center;
-    display: block;
-    margin: 0 auto;
+.cadre{
+    margin-bottom: 10em;
 }
 
 .cadre img {
+    display: inline-block;
+    margin: 0 auto;
     max-height: 200px;
     max-width: 300px;
 }
 
 .nom {
-    font-size: 3em;
+    font-size: 1.5em;
 }
 .info {
     font-size: 1.3em;
 }
 
 .price {
-    font-size: 2em;
+    font-size: 1.2em;
     text-align: center;
 }
 

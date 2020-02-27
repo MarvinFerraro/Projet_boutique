@@ -4,9 +4,8 @@ class ListeClient
 {
     public $ls_users = [];
 
-    public function __construct($bdd)
+    public function __construct($ls_users)
     {
-        $ls_users = list_all_user($bdd);
         foreach ($ls_users as $users) {
             $user = new Client($users['id'], $users['name'], $users['email'], $users['adress'],
                 $users['postal_code'], $users['city']);

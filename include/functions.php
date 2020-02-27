@@ -11,19 +11,21 @@ function listCats()
 
     return $cats;
 }
+
 function displayArticle(Article $article)
 {
     ?>
-    <div class="cadre article">
-        <h2 class="nom">Direction : <?= $article->getName() ?></h2>
-        <img src="<?= $article->getImg() ?>" alt="<?= $article->getName() ?>">
+
+    <div class="card col-4 cadre">
+        <img class="card-img-top" src="<?= $article->getImg() ?>" alt="<?= $article->getName() ?>">
+        <h2 class="nom card-title">Direction : <?= $article->getName() ?></h2>
         <p class="price">Pour seulement : <?= $article->getPrice() ?>
             <span class="price_text">(Transport compris)</span></p>
         <p class="price">Il reste encore : <?= $article->getStock() ?> place(s)</p>
         <p class="description"><?= $article->getDescription() ?></p>
         <p class="price_text">Poids du bagage strictement inférieur à <?= $article->getWeight() ?></p>
         <input type="hidden" name="cacher" value="1">
-        <input type="checkbox" name="article[]" value="<?= $article->getId() ?>">
+        <p class="price"><input type="checkbox" name="article[]" value="<?= $article->getId() ?>"></p>
     </div>
     <?php
 }
@@ -35,7 +37,7 @@ function displayCatalogue(Catalogue $catalogue)
     }
 }
 
-function displayUser( CLient $user)
+function displayUser(CLient $user)
 {
     ?>
     <div class="card " style="width: 18rem;">
@@ -53,9 +55,9 @@ function displayUser( CLient $user)
     <?php
 }
 
-function displayLsUsers(ListeClient  $listeClient)
+function displayLsUsers(ListeClient $listeClient)
 {
-    foreach($listeClient->getLs_users() as $ls_user) {
+    foreach ($listeClient->getLs_users() as $ls_user) {
         displayUser($ls_user);
     }
 }

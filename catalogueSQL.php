@@ -3,7 +3,6 @@ session_start();
 require 'include/functionsSQL.php';
 require 'include/class/Catalogue.php';
 require 'include/functions.php';
-
 include("include/preset/head.php");
 
 
@@ -25,11 +24,11 @@ if (isset($_POST['article']) AND !empty($_POST['article'])) {
 
 ?>
     <form action="catalogueSQL.php" method="post">
-        <?php
-        // On créait une boucle sur l'objet cata qui contient tout les objects article, on dans cette boucle
-        // on affiche la view
-        displayCatalogue(new Catalogue($bdd));
-        ?>
+        <div class="row d-flex jutify-content-around">
+            <?php
+            displayCatalogue(new Catalogue(list_articles($bdd)));
+            ?>
+        </div>
         <input class="input_float" type="submit" value="Envoyer">
     </form>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 19 fév. 2020 à 15:05
+-- Généré le :  jeu. 27 fév. 2020 à 08:13
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `articles` (
   `Categories_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_Articles_Categories1_idx` (`Categories_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles`
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `articles_orders` (
   PRIMARY KEY (`id`),
   KEY `fk_Articles_has_Orders_Orders1_idx` (`Orders_id`),
   KEY `fk_Articles_has_Orders_Articles1_idx` (`Articles_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `articles_orders`
@@ -86,8 +86,6 @@ CREATE TABLE IF NOT EXISTS `articles_orders` (
 INSERT INTO `articles_orders` (`id`, `Articles_id`, `Orders_id`, `quantity`) VALUES
 (1, 1, 1, 1),
 (2, 3, 1, 2),
-(4, 11, 2, 1),
-(5, 9, 2, 2),
 (7, 2, 3, 1),
 (8, 10, 3, 1),
 (9, 3, 4, 2),
@@ -123,20 +121,43 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `cloth`
+--
+
+DROP TABLE IF EXISTS `cloth`;
+CREATE TABLE IF NOT EXISTS `cloth` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `style_cloth` varchar(255) NOT NULL DEFAULT 'Culotte',
+  `article_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `cloth`
+--
+
+INSERT INTO `cloth` (`id`, `style_cloth`, `article_id`) VALUES
+(1, 'Maillot.', 7),
+(2, 'Met ton pull y à de la neige.', 11);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `orders`
 --
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `numero` varchar(45) NOT NULL,
-  `date` date NOT NULL,
-  `price` int(11) NOT NULL,
-  `total_weight` float NOT NULL,
+  `numero` varchar(45) DEFAULT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp(),
+  `price` int(11) DEFAULT NULL,
+  `total_weight` int(11) DEFAULT NULL,
   `Users_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_Orders_Users1_idx` (`Users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `orders`
@@ -144,11 +165,34 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`id`, `numero`, `date`, `price`, `total_weight`, `Users_id`) VALUES
 (1, '15CO', '2020-01-13', 120, 2, 1),
-(2, '16CO', '2020-02-10', 600, 3.6, 1),
-(3, '17CO', '2019-12-08', 150, 2.2, 2),
-(4, '18CO', '2020-02-07', 520, 2.2, 2),
-(5, '19CO', '2020-02-13', 600, 2.2, 2),
-(6, '20CO', '2020-02-14', 210, 2.5, 2);
+(3, '17CO', '2019-12-08', 150, 2, 2),
+(4, '18CO', '2020-02-07', 520, 2, 2),
+(5, '19CO', '2020-02-13', 600, 2, 2),
+(6, '20CO', '2020-02-14', 210, 2, 2),
+(8, 'ML', '2020-02-21', 440, 15, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `shoes`
+--
+
+DROP TABLE IF EXISTS `shoes`;
+CREATE TABLE IF NOT EXISTS `shoes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `style_shoe` varchar(255) DEFAULT 'Chaussette',
+  `article_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `shoes`
+--
+
+INSERT INTO `shoes` (`id`, `style_shoe`, `article_id`) VALUES
+(1, 'Chaussure décath', 3),
+(2, 'Claquette Fila', 1);
 
 -- --------------------------------------------------------
 
@@ -166,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
@@ -174,7 +218,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `adress`, `postal_code`, `city`) VALUES
 (1, 'Chuck Norris', 'chuck.norris@texasranger.com', '25 rue chez toi', 38000, 'Grenoble'),
-(2, 'Charlize Theron', 'charlize.theron@elephantman.com', '25 rue chez toi', 38000, 'Grenoble');
+(2, 'Charlize Theron', 'charlize.theron@elephantman.com', '25 rue chez toi', 38000, 'Grenoble'),
+(18, 'Marvin FERRARO', 'issou@live.fr', '25 chez toi', 38000, 'grenoble'),
+(21, 'richard', 'richard@live.fr', 'ici', 25303, 'Parlabas'),
+(22, 'Baptiste', 'baptiteFaure@torpfaure.daran', 'Faur', 38000, 'Tulin');
 
 --
 -- Contraintes pour les tables déchargées
@@ -191,13 +238,25 @@ ALTER TABLE `articles`
 --
 ALTER TABLE `articles_orders`
   ADD CONSTRAINT `fk_Articles_has_Orders_Articles1` FOREIGN KEY (`Articles_id`) REFERENCES `articles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Articles_has_Orders_Orders1` FOREIGN KEY (`Orders_id`) REFERENCES `orders` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Articles_has_Orders_Orders1` FOREIGN KEY (`Orders_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `cloth`
+--
+ALTER TABLE `cloth`
+  ADD CONSTRAINT `cloth_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`);
 
 --
 -- Contraintes pour la table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `fk_Orders_Users1` FOREIGN KEY (`Users_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Orders_Users1` FOREIGN KEY (`Users_id`) REFERENCES `users` (`id`) ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `shoes`
+--
+ALTER TABLE `shoes`
+  ADD CONSTRAINT `shoes_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
