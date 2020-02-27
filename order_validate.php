@@ -8,7 +8,6 @@ $orders= [
 ];
 
 add_order($bdd, $orders);
-
 foreach ($_SESSION['quantity'] as $id => $quantity) {
     add_article_orders($bdd,$id, $quantity);
 }

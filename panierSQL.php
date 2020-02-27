@@ -2,6 +2,9 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 require 'include/functionsSQL.php';
+require 'include/functions.php';
+require 'include/class/Article.php';
+require 'include/class/Basket.php';
 include('include/preset/head.php');
 //todo
 // Traitement php du session / de l'ajout d'une quantité / de la suppression d'article...
@@ -30,6 +33,21 @@ if (!isset($_POST['remove_article']) AND empty($_SESSION['panier'])) {
     <?php
 }
 
+
+$panierTest = new Basket();
+$panierTest->addArticles($_SESSION['panier'],$_SESSION['quantity']);
+
+
+?>
+ <form action="panierSQL.php" method="post">
+        <div class="row d-flex jutify-content-around">
+            <?php
+            displayPanier($panierTest, $bdd);
+            ?>
+        </div>
+        <input class="input_float" type="submit" value="Envoyer">
+    </form>
+<?php
 
 //Si le panier en session n'est pas vide et si la modif
 if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {

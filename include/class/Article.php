@@ -110,3 +110,4 @@ class Article
         $this->Categories_id = $Categories_id;
     }
 }
+require 'Article_Child.php';

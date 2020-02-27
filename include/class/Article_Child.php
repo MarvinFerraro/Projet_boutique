@@ -1,5 +1,4 @@
 <?php
-require 'Article.php';
 
 class Shoes extends Article
 {

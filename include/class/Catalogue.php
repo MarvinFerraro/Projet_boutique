@@ -1,5 +1,5 @@
 <?php
-require 'Article_Child.php';
+require 'Article.php';
 class Catalogue
 {
     public $cat = [];
