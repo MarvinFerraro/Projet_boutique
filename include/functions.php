@@ -39,7 +39,6 @@ function displayArticle(Article $article, $isPagePanier = false)
                    value="<?= $_SESSION['quantity'][$article->getId()] ?>">
             <?php
         }
-
         ?>
     </div>
     <?php
@@ -48,22 +47,52 @@ function displayArticle(Article $article, $isPagePanier = false)
 function displayPanier(Basket $panier, $bdd)
 {
     foreach ($panier->getPanier() as $articles_id => $value) {
-        $list_article_byIDs = getAll_article_byIds($bdd, $articles_id);
-        foreach ($list_article_byIDs as $info) {
-            $article_chose = new Article($info['id'], $info['name'], $info['description'],
-                $info['price'], $info['image'], $info['weight'], $info['stock'],
-                $info['for_sale'], $info['Categories_id']);
-            displayArticle($article_chose, true);
+        foreach (makeArticle(getAll_article_byIds($bdd, $articles_id)) as $objectArticle) {
+            displayArticle($objectArticle, true);
         }
     }
+//    foreach ($panier->getPanier() as $articles_id => $value) {
+//        $list_article_byIDs = getAll_article_byIds($bdd, $articles_id);
+//        $list_article = makeArticle($list_article_byIDs);
+//        foreach ($list_article as $objectArticle) {
+//            displayArticle($objectArticle, true);
+//        }
+//    }
 }
 
 
 function displayCatalogue(Catalogue $catalogue)
 {
     foreach ($catalogue->getCat() as $article) {
-        displayArticle($article);
+        displayArticle($article, false);
     }
+}
+
+function makeArticle($all_articles)
+{
+    $cat = [];
+    foreach ($all_articles as $article_inf) {
+
+        if ($article_inf['style_cloth'] != NULL) {
+
+            $article = new Cloth($article_inf['id'], $article_inf['name'], $article_inf['description'], $article_inf['price'],
+                $article_inf['image'], $article_inf['weight'], $article_inf['stock'], $article_inf['for_sale'],
+                $article_inf['Categories_id'], $article_inf['style_cloth']);
+            $cat[] = $article;
+
+        } elseif ($article_inf['style_shoe'] != NULL) {
+            $article = new Shoes($article_inf['id'], $article_inf['name'], $article_inf['description'], $article_inf['price'],
+                $article_inf['image'], $article_inf['weight'], $article_inf['stock'], $article_inf['for_sale'],
+                $article_inf['Categories_id'], $article_inf['style_shoe']);
+            $cat[] = $article;
+        } else {
+            $article = new Article($article_inf['id'], $article_inf['name'], $article_inf['description'], $article_inf['price'],
+                $article_inf['image'], $article_inf['weight'], $article_inf['stock'], $article_inf['for_sale'],
+                $article_inf['Categories_id']);
+            $cat[] = $article;
+        }
+    }
+    return $cat;
 }
 
 function displayUser(CLient $user)
@@ -91,8 +120,11 @@ function displayLsUsers(ListeClient $listeClient)
     }
 }
 
-function totalPanier($priceT, $somme)
+
+function totalPanier($bdd, $id, $quantity)
 {
-    $somme += $priceT;
+    $price_article = getPrice_article_byIds($bdd, $id);
+    $somme = $price_article[0]['price'] * $quantity;
     return $somme;
+
 }

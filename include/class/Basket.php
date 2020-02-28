@@ -3,36 +3,32 @@
 
 class Basket
 {
+
     private $panier = [];
 
 
     public function addArticles($ids, $quantitys)
     {
-
         foreach ($ids as $id) {
             $this->panier[$id] = $quantitys[$id];
         }
-
     }
 
-    public function updatePanier($id, $quantity)
+    public function updatePanier($ids, $quantitys)
     {
-        $this->id = $id;
-        $this->quantity = $quantity;
+        foreach ($ids as $id) {
+            $this->panier[$id] = $quantitys[$id];
+        }
     }
 
-    public function deleteArticlePanier()
+    public function deleteArticlePanier($ls_article, $ls_article_chose)
     {
-
     }
+
     public function getPanier(): array
     {
         return $this->panier;
     }
 
-    public function getArticle_byID()
-    {
-
-    }
 
 }

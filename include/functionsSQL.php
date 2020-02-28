@@ -1,4 +1,5 @@
 <?php
+
 try {
     $bdd = new PDO('mysql:host=localhost;dbname=bd_boutique;charset=utf8', 'root', '');
 } catch (Exception $e) {
@@ -14,13 +15,6 @@ LEFT JOIN shoes on articles.id = shoes.article_id
 GROUP BY articles.id')->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// fonction maxi bestof++
-function select_article_by_ids(PDO $bdd, Array $ids): Array
-{
-    return $bdd->query("SELECT articles.name FROM articles WHERE articles.id IN (" . implode(', ', $ids) . ") ")->fetchAll();
-}
-
-
 function getAll_article_byIds(PDO $bdd, $ids)
 {
     return $bdd->query("SELECT articles.*, cloth.style_cloth, shoes.style_shoe FROM articles 
@@ -29,6 +23,18 @@ LEFT JOIN shoes on articles.id = shoes.article_id
 WHERE articles.id = '$ids '")->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+// fonction maxi bestof++
+function select_article_by_ids(PDO $bdd, Array $ids): Array
+{
+    return $bdd->query("SELECT articles.name FROM articles WHERE articles.id IN (" . implode(', ', $ids) . ") ")->fetchAll();
+}
+
+
+
+function getPrice_article_byIds(PDO $bdd, $ids) {
+    return $bdd->query("SELECT articles.price FROM articles WHERE articles.id = '$ids' ")->fetchAll(PDO::FETCH_ASSOC);
+}
 
 // ----------------------------------Function afficher l'articles selectionné de la tables articles--------------------------
 function select_article_panier($bdd, $id)

@@ -24,20 +24,30 @@ foreach ($_SESSION['panier'] as $key => $article_id) {
     }
 }
 
-if (!isset($_POST['remove_article']) AND empty($_SESSION['panier'])) {
+
+foreach($_SESSION['quantity'] as $id => $quantity) {
+    $somme += totalPanier($bdd, $id,$quantity);
+}
+$_SESSION['somme'] = $somme;
+$panierTest = new Basket();
+
+if (!empty($_SESSION['quantity']) AND isset($_SESSION['quantity'])) {
+    $panierTest->addArticles($_SESSION['panier'], $_SESSION['quantity']);
+}
+if (isset($_POST['removeArticle']) AND !empty($_POST['removeArticle'])){
+    $panierTest->deleteArticlePanier($_SESSION['quantity'],$_POST['removeArticle'] );
+}
+
+
+
+if (!isset($_POST['removeArticle']) AND empty($_SESSION['panier'])) {
     ?>
     <div class="emptyPanier">
         <p class="price">Votre panier est vide</p>
         <p class="returnCat">Aller au <a href="catalogueSQL.php">Catalogue</a></p>
     </div>
     <?php
-}
-
-
-$panierTest = new Basket();
-$panierTest->addArticles($_SESSION['panier'], $_SESSION['quantity']);
-
-if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
+} else {
 
     ?>
     <form action="panierSQL.php" method="post">
@@ -46,21 +56,22 @@ if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
             displayPanier($panierTest, $bdd);
             ?>
         </div>
-        <input class="input_float" type="submit" value="Envoyer">
+        <input type="submit" value="Modifier panier">
     </form>
-    <?php
-}elseif (!empty($_POST['remove_article']) AND (count($_POST['remove_article']) >= 1)) {
-    ?>
-    <form action="panierSQL.php" method="post">
-        <div class="row d-flex jutify-content-around">
-            <?php
-            displayPanier($panierTest, $bdd);
-            ?>
-        </div>
-        <input class="input_float" type="submit" value="Envoyer">
+
+    <form action="order_validate.php" method="post">
+
+        <input type="submit" value="Valider la commande">
     </form>
+    <p class="priceSomme"> Le total du panier est de <?= $somme ?> euros</p>
     <?php
 }
+
+
+
+
+
+
 die;
 //Si le panier en session n'est pas vide et si la modif
 if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
