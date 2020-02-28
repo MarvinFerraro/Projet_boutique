@@ -11,7 +11,7 @@ function listCats()
     return $cats;
 }
 
-function displayArticle(Article $article)
+function displayArticle(Article $article, $isPagePanier = false)
 {
     ?>
     <div class="card col-4 cadre">
@@ -30,49 +30,33 @@ function displayArticle(Article $article)
         }
         ?>
         <input type="hidden" name="cacher" value="1">
-        <p class="price"><input type="checkbox" name="article[]" value="<?= $article->getId() ?>"></p>
-    </div>
-    <?php
-}
-function displayArticlePanier(Article $article)
-{
-    ?>
-    <div class="card col-4 cadre">
-        <img class="card-img-top" src="<?= $article->getImg() ?>" alt="<?= $article->getName() ?>">
-        <h2 class="nom card-title">Direction : <?= $article->getName() ?></h2>
-        <p class="price">Pour seulement : <?= $article->getPrice() ?>
-            <span class="price_text">(Transport compris)</span></p>
-        <p class="price">Il reste encore : <?= $article->getStock() ?> place(s)</p>
-        <p class="description"><?= $article->getDescription() ?></p>
-        <p class="price_text">Poids du bagage strictement inférieur à <?= $article->getWeight() ?></p>
+        <p class="price"><input type="checkbox" name="<?= $isPagePanier ? 'removeArticle[]' : 'article[]' ?>"
+                                value="<?= $article->getId() ?>"></p>
         <?php
-        if (is_a($article, 'Shoes')) {
-            echo(' <p class="price">Nous vous conseillons une paire de : <br/>' . $article->getStyleShoe() . '.</p>');
-        } elseif (method_exists($article, 'getStyleCloth')) {
-            echo(' <p class="price">Nous vous conseillons : <br/>' . $article->getStyleCloth() . '.</p>');
+        if ($isPagePanier) {
+            ?>
+            <input class="b_quantity" type="number" min="0" max="20" name="quantity[<?= $article->getId() ?>]"
+                   value="<?= $_SESSION['quantity'][$article->getId()] ?>">
+            <?php
         }
+
         ?>
-        <input type="hidden" name="cacher" value="1">
-        <p class="price"><input type="checkbox" name="remove_article[]" value="<?= $article->getId() ?>"></p>
-        <input class="b_quantity" type="number" min="0" max="20" name="quantity[<?= $article->getId() ?>]"
-               value="<?= $_SESSION['quantity'][$article->getId()] ?>">
     </div>
     <?php
 }
 
-function displayPanier(Basket $panier, $bdd) {
+function displayPanier(Basket $panier, $bdd)
+{
     foreach ($panier->getPanier() as $articles_id => $value) {
-        $list_article_byIDs = getAll_article_byIds($bdd,$articles_id);
+        $list_article_byIDs = getAll_article_byIds($bdd, $articles_id);
         foreach ($list_article_byIDs as $info) {
             $article_chose = new Article($info['id'], $info['name'], $info['description'],
-                $info['price'], $info['image'],$info['weight'], $info['stock'],
+                $info['price'], $info['image'], $info['weight'], $info['stock'],
                 $info['for_sale'], $info['Categories_id']);
-            displayArticlePanier($article_chose);
+            displayArticle($article_chose, true);
         }
     }
 }
-
-
 
 
 function displayCatalogue(Catalogue $catalogue)

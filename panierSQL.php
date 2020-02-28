@@ -35,11 +35,12 @@ if (!isset($_POST['remove_article']) AND empty($_SESSION['panier'])) {
 
 
 $panierTest = new Basket();
-$panierTest->addArticles($_SESSION['panier'],$_SESSION['quantity']);
+$panierTest->addArticles($_SESSION['panier'], $_SESSION['quantity']);
 
+if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
 
-?>
- <form action="panierSQL.php" method="post">
+    ?>
+    <form action="panierSQL.php" method="post">
         <div class="row d-flex jutify-content-around">
             <?php
             displayPanier($panierTest, $bdd);
@@ -47,8 +48,20 @@ $panierTest->addArticles($_SESSION['panier'],$_SESSION['quantity']);
         </div>
         <input class="input_float" type="submit" value="Envoyer">
     </form>
-<?php
-
+    <?php
+}elseif (!empty($_POST['remove_article']) AND (count($_POST['remove_article']) >= 1)) {
+    ?>
+    <form action="panierSQL.php" method="post">
+        <div class="row d-flex jutify-content-around">
+            <?php
+            displayPanier($panierTest, $bdd);
+            ?>
+        </div>
+        <input class="input_float" type="submit" value="Envoyer">
+    </form>
+    <?php
+}
+die;
 //Si le panier en session n'est pas vide et si la modif
 if (!empty($_SESSION['panier']) AND empty($_POST['remove_article'])) {
     ?>
