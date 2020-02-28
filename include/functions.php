@@ -30,13 +30,15 @@ function displayArticle(Article $article, $isPagePanier = false)
         }
         ?>
         <input type="hidden" name="cacher" value="1">
-        <p class="price"><input type="checkbox" name="<?= $isPagePanier ? 'removeArticle[]' : 'article[]' ?>"
+        <p class="price"><input type="<?= $isPagePanier ? 'hidden' : 'checkbox' ?>" name="<?= $isPagePanier ? 'removeArticle[]' : 'article[]' ?>"
                                 value="<?= $article->getId() ?>"></p>
         <?php
         if ($isPagePanier) {
             ?>
             <input class="b_quantity" type="number" min="0" max="20" name="quantity[<?= $article->getId() ?>]"
                    value="<?= $_SESSION['quantity'][$article->getId()] ?>">
+
+            <input type="submit" name="delete_<?=$article->getId() ?>" value="Suppr MOi">
             <?php
         }
         ?>

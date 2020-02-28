@@ -21,8 +21,12 @@ class Basket
         }
     }
 
-    public function deleteArticlePanier($ls_article, $ls_article_chose)
+    public function deleteArticlePanier($id)
     {
+        var_dump($this->panier);
+        unset($this->panier[$id]);
+        var_dump($this->panier);
+
     }
 
     public function getPanier(): array

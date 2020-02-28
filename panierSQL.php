@@ -25,19 +25,27 @@ foreach ($_SESSION['panier'] as $key => $article_id) {
 }
 
 
-foreach($_SESSION['quantity'] as $id => $quantity) {
-    $somme += totalPanier($bdd, $id,$quantity);
+foreach ($_SESSION['quantity'] as $id => $quantity) {
+    $somme += totalPanier($bdd, $id, $quantity);
 }
+
 $_SESSION['somme'] = $somme;
 $panierTest = new Basket();
 
 if (!empty($_SESSION['quantity']) AND isset($_SESSION['quantity'])) {
     $panierTest->addArticles($_SESSION['panier'], $_SESSION['quantity']);
 }
-if (isset($_POST['removeArticle']) AND !empty($_POST['removeArticle'])){
-    $panierTest->deleteArticlePanier($_SESSION['quantity'],$_POST['removeArticle'] );
-}
 
+foreach ($_SESSION['quantity'] as $id => $quantity) {
+    if (isset($_POST['delete_' . $id])) {
+        $panierTest->deleteArticlePanier($id);
+        unset($_SESSION['quantity'][$article_id]);
+        var_dump($panierTest->getPanier());
+        var_dump($panierTest);
+        var_dump($_SESSION['quantity']);
+        var_dump($_SESSION['panier']);
+    }
+}
 
 
 if (!isset($_POST['removeArticle']) AND empty($_SESSION['panier'])) {
@@ -53,6 +61,7 @@ if (!isset($_POST['removeArticle']) AND empty($_SESSION['panier'])) {
     <form action="panierSQL.php" method="post">
         <div class="row d-flex jutify-content-around">
             <?php
+            var_dump($panierTest);
             displayPanier($panierTest, $bdd);
             ?>
         </div>
@@ -66,10 +75,6 @@ if (!isset($_POST['removeArticle']) AND empty($_SESSION['panier'])) {
     <p class="priceSomme"> Le total du panier est de <?= $somme ?> euros</p>
     <?php
 }
-
-
-
-
 
 
 die;
