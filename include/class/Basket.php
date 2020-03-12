@@ -23,9 +23,7 @@ class Basket
 
     public function deleteArticlePanier($id)
     {
-        var_dump($this->panier);
         unset($this->panier[$id]);
-        var_dump($this->panier);
 
     }
 

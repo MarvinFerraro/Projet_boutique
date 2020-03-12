@@ -7,7 +7,7 @@ require 'include/class/Article.php';
 require 'include/class/Basket.php';
 include('include/preset/head.php');
 //todo
-// Traitement php du session / de l'ajout d'une quantité / de la suppression d'article...
+// Probleme, le dernier article reste en mémoire et fais buguer le panier
 $somme = 0;
 
 if (!isset($_SESSION['quantity'])) {
@@ -40,11 +40,10 @@ foreach ($_SESSION['quantity'] as $id => $quantity) {
     if (isset($_POST['delete_' . $id])) {
         $panierTest->deleteArticlePanier($id);
         unset($_SESSION['quantity'][$article_id]);
-        var_dump($panierTest->getPanier());
-        var_dump($panierTest);
-        var_dump($_SESSION['quantity']);
-        var_dump($_SESSION['panier']);
     }
+}
+if(count($_SESSION['quantity']) <= 1) {
+    echo "tata";
 }
 
 
@@ -61,7 +60,6 @@ if (!isset($_POST['removeArticle']) AND empty($_SESSION['panier'])) {
     <form action="panierSQL.php" method="post">
         <div class="row d-flex jutify-content-around">
             <?php
-            var_dump($panierTest);
             displayPanier($panierTest, $bdd);
             ?>
         </div>
