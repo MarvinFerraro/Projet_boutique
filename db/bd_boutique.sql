@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 27 fév. 2020 à 08:13
+-- Généré le :  ven. 13 mars 2020 à 15:57
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -138,8 +138,8 @@ CREATE TABLE IF NOT EXISTS `cloth` (
 --
 
 INSERT INTO `cloth` (`id`, `style_cloth`, `article_id`) VALUES
-(1, 'Maillot.', 7),
-(2, 'Met ton pull y à de la neige.', 11);
+(1, 'un Maillot', 7),
+(2, 'le bonnet', 11);
 
 -- --------------------------------------------------------
 
@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `Users_id` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `fk_Orders_Users1_idx` (`Users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `orders`
@@ -169,7 +169,8 @@ INSERT INTO `orders` (`id`, `numero`, `date`, `price`, `total_weight`, `Users_id
 (4, '18CO', '2020-02-07', 520, 2, 2),
 (5, '19CO', '2020-02-13', 600, 2, 2),
 (6, '20CO', '2020-02-14', 210, 2, 2),
-(8, 'ML', '2020-02-21', 440, 15, 1);
+(8, 'ML', '2020-02-21', 440, 15, 1),
+(10, 'ML', '2020-03-09', 100, 15, 1);
 
 -- --------------------------------------------------------
 
